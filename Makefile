@@ -6,6 +6,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -rf
 LIBFT = libft
+READLINE_FLAGS = -L/opt/homebrew/opt/readline/lib -lreadline -lhistory
 
 # Colors
 DEF_COLOR = \033[0;39m
@@ -30,7 +31,7 @@ lib:
 	@make -C $(LIBFT)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) -L $(LIBFT) -o $(NAME) $(OBJS)
+	@$(CC) $(CFLAGS) -L $(LIBFT) -o $(NAME) $(OBJS) $(READLINE_FLAGS)
 	@echo "$(GREEN)Project successfully compiled$(DEF_COLOR)"
 
 tmp:
