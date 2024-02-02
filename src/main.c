@@ -10,6 +10,11 @@ int main(void)
     {
         str = readline("Minishell-42: ");
         add_history(str);
-        printf("%s\n", str);
+        if (ft_strncmp(str, "pwd", 3) == 0)
+            get_pwd();
+        else
+            printf("%s\n", str);
     }
 }
+
+// this is just test code
