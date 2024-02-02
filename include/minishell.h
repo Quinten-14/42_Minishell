@@ -7,7 +7,9 @@
 #include <sys/syslimits.h>
 #include <unistd.h>
 #include "libft.h"
+#include <stdbool.h>
 
 int get_pwd(void);
+int ft_echo(char **args);
 
 #endif
