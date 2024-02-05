@@ -5,6 +5,16 @@
 // the options can be:
 // Command, word, pipe, redirect
 
+static int arr_len(char **arr)
+{
+    int i;
+
+    i = 0;
+    while (arr[i])
+        i++;
+    return (i);
+}
+
 static void print_arr(char ***matrix)
 {
     int i;
@@ -29,13 +39,19 @@ char    ***lexer(char *prompt)
 
     i = 0;
     splitted = ft_split(prompt, ' ');
-    result = (char ***)malloc(sizeof(char **) * (1));
+    result = (char ***)malloc(sizeof(char **) * (arr_len(splitted) + 1));
     if (!result)
         return (NULL);
     while (splitted[i])
     {
+        result[i] = (char **)malloc(sizeof(char *) * (2));
+        if (!result[i])
+            return (NULL);
         result[i][0] = splitted[i];
-        result[i][1] = "word";
+        if (i == 0 || (ft_strcmp(splitted[i-1], "|") == 0))
+            result[i][1] = "command";
+        else
+            result[i][1] = get_type(splitted[i]);
         i++;
     }
     result[i] = NULL;
