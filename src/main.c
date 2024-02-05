@@ -4,20 +4,13 @@
 int main(void)
 {
     char    *str;
-    char    **seperated;
 
     using_history();
     while (1)
     {
         str = readline("Minishell-42: ");
         add_history(str);
-        seperated = ft_split(str, ' ');
-        if (ft_strcmp(seperated[0], "pwd") == 0)
-            get_pwd();
-        else if (ft_strcmp(seperated[0], "echo") == 0)
-            ft_echo(seperated);
-        else
-            printf("Command Not Found\n");
+        lexer(str);
     }
 }
 

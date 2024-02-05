@@ -11,5 +11,6 @@
 
 int get_pwd(void);
 int ft_echo(char **args);
+char    ***lexer(char *prompt);
 
 #endif
