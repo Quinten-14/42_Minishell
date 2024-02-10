@@ -31,6 +31,14 @@ static void print_arr(char ***matrix)
     }
 }
 
+// split the prompt and then tokenize the strings to types
+// The data is stored in a linked list from the left to the right.
+char    ***lexer(char *prompt)
+{
+    return (NULL);
+}
+
+/*
 char    ***lexer(char *prompt)
 {
     char    **splitted;
@@ -58,3 +66,4 @@ char    ***lexer(char *prompt)
     print_arr(result);
     return (result);
 }
+*/
