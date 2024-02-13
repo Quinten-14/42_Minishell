@@ -1,61 +1,35 @@
 #include "../../include/minishell.h"
 #include "../../include/libft.h"
 
-static char *redirect_type(char *str)
+static bool  check_redir(char *str)
 {
-    if (ft_strcmp(str, "<") == 0)
-        return ("less");
-    else if (ft_strcmp(str, "<<") == 0)
-        return ("here_doc");
-    else if (ft_strcmp(str, ">") == 0)
-        return ("great");
+    if (ft_strcmp(str, "<<") == 0 || ft_strcmp(str, "<") == 0 ||
+            ft_strcmp(str, ">>") == 0 || ft_strcmp(str, ">") == 0)
+        return (true);
     else
-        return ("dgreat");
+        return (false);
 }
 
-static char *expansion_types(char *str)
+char    *check_types(char *str, int i, char **arr)
 {
-    int nbr_dollar;
-    int i;
+    char    *type;
+    static bool command_inline;
 
-    i = 0;
-    nbr_dollar = 0;
-    while (str[i])
+    if (i == 0)
+        command_inline = false;
+    if (check_redir(str) == true)
+        type = "redirection";
+    else if (ft_strcmp(str, "|") == 0)
     {
-        if (str[i] == '$')
-            nbr_dollar++;
-        i++;
+        type = "pipe";
+        command_inline = false;
     }
-    if (nbr_dollar % 2 == 0)
-        return ("processID");
-    else
-        return ("expansion");
-
-}
-
-static bool expansion_checker(char *str)
-{
-    int i;
-
-    i = 0;
-    while (str[i])
+    else if (i == 0 || ((i > 1 && check_redir(arr[i-2]) == true) && !command_inline))
     {
-        if (str[i] == '$')
-            return (true);
-        i++;
+        type = "command";
+        command_inline = true;
     }
-    return (false);
-}
-
-char    *get_type(char *str)
-{
-    if (ft_strcmp(str, "|") == 0)
-        return ("pipe");
-    else if (ft_strcmp(str, "<") == 0 || ft_strcmp(str, ">") == 0 || 
-            ft_strcmp(str, ">>") == 0 || ft_strcmp(str, "<<") == 0)
-        return (redirect_type(str));
-    else if (expansion_checker(str) == true)
-        return (expansion_types(str));
     else
-        return ("word");
+        type = "word";
+    return (type);
 }

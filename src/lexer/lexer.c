@@ -1,69 +1,65 @@
-#include "../../include/minishell.h"
 #include "../../include/libft.h"
+#include "../../include/minishell.h"
 
-// the lexer gives info like the type of the word after split
-// the options can be:
-// Command, word, pipe, redirect
-
-static int arr_len(char **arr)
+t_input	*new_list(char *str, int i, char **arr)
 {
-    int i;
+	t_input	*new;
 
-    i = 0;
-    while (arr[i])
-        i++;
-    return (i);
+	new = malloc(sizeof(t_input));
+	if (!new)
+		return (NULL);
+	new->content = str;
+	new->type = check_types(str, i, arr);
+	new->next = NULL;
+	return (new);
 }
 
-static void print_arr(char ***matrix)
+void	add_node(t_input **head, char *str, int i, char **arr)
 {
-    int i;
+	t_input	*new_node;
+	t_input	*current;
 
-    i = 0;
-    if (matrix != NULL) {
-        while (matrix[i] != NULL)
-        {
-            if (matrix[i][0] != NULL && matrix[i][1] != NULL) {
-                printf("%s %s\n", matrix[i][0], matrix[i][1]);
-            }
-            i++;
-        }
-    }
+	new_node = new_list(str, i, arr);
+	if (*head == NULL)
+	{
+		*head = new_node;
+	}
+	else
+	{
+		current = *head;
+		while (current->next != NULL)
+		{
+			current = current->next;
+		}
+		current->next = new_node;
+	}
 }
 
-// split the prompt and then tokenize the strings to types
-// The data is stored in a linked list from the left to the right.
-char    ***lexer(char *prompt)
+void	print_list(t_input *head)
 {
-    return (NULL);
+	t_input	*current;
+
+	current = head;
+	while (current != NULL)
+	{
+		printf("Content: %s, Type: %s\n", current->content, current->type);
+		current = current->next;
+	}
 }
 
-/*
-char    ***lexer(char *prompt)
+void	lexer(char *prompt)
 {
-    char    **splitted;
-    char    ***result;
-    int i;
+	char	**splitted;
+	t_input	*input_list;
+	int		i;
 
-    i = 0;
-    splitted = ft_split(prompt, ' ');
-    result = (char ***)malloc(sizeof(char **) * (arr_len(splitted) + 1));
-    if (!result)
-        return (NULL);
-    while (splitted[i])
-    {
-        result[i] = (char **)malloc(sizeof(char *) * (2));
-        if (!result[i])
-            return (NULL);
-        result[i][0] = splitted[i];
-        if (i == 0 || (ft_strcmp(splitted[i-1], "|") == 0))
-            result[i][1] = "command";
-        else
-            result[i][1] = get_type(splitted[i]);
-        i++;
-    }
-    result[i] = NULL;
-    print_arr(result);
-    return (result);
+	splitted = ft_split(prompt, ' ');
+	input_list = new_list(splitted[0], 0, splitted);
+	i = 1;
+	while (splitted[i])
+	{
+		add_node(&input_list, splitted[i], i, splitted);
+		i++;
+	}
+	print_list(input_list);
 }
-*/

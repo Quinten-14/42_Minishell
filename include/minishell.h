@@ -20,7 +20,7 @@ typedef struct  s_input_list
 
 int get_pwd(void);
 int ft_echo(char **args);
-char    *get_type(char *str);
-char    ***lexer(char *prompt);
+void    lexer(char *prompt);
+char    *check_types(char *str, int i, char **arr);
 
 #endif
