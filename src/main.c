@@ -4,13 +4,15 @@
 int main(void)
 {
     char    *str;
+    t_input *input;
 
     using_history();
     while (1)
     {
         str = readline("Minishell-42: ");
         add_history(str);
-        lexer(str);
+        input = lexer(str);
+        parser(input);
     }
 }
 

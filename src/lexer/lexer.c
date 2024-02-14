@@ -1,7 +1,7 @@
 #include "../../include/libft.h"
 #include "../../include/minishell.h"
 
-static t_input  *new_list(char *str, int i, char **arr)
+static t_input	*new_list(char *str, int i, char **arr)
 {
 	t_input	*new;
 
@@ -14,7 +14,7 @@ static t_input  *new_list(char *str, int i, char **arr)
 	return (new);
 }
 
-static void add_node(t_input **head, char *str, int i, char **arr)
+static void	add_node(t_input **head, char *str, int i, char **arr)
 {
 	t_input	*new_node;
 	t_input	*current;
@@ -35,7 +35,7 @@ static void add_node(t_input **head, char *str, int i, char **arr)
 	}
 }
 
-static void print_list(t_input *head)
+static void	print_list(t_input *head)
 {
 	t_input	*current;
 
@@ -47,7 +47,7 @@ static void print_list(t_input *head)
 	}
 }
 
-void	lexer(char *prompt)
+t_input	*lexer(char *prompt)
 {
 	char	**splitted;
 	t_input	*input_list;
@@ -63,4 +63,5 @@ void	lexer(char *prompt)
 	}
 	if (DEBUG_MODE == true)
 		print_list(input_list);
+    return (input_list);
 }

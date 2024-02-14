@@ -19,7 +19,8 @@ MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
 
-SOURCES = main.c builtins/pwd.c builtins/echo.c lexer/lexer.c lexer/type.c
+SOURCES = main.c builtins/pwd.c builtins/echo.c lexer/lexer.c lexer/type.c \
+		  parser/syntax_checker.c
 
 SRCS = $(addprefix $(SRCS_DIR)/,$(SOURCES))
 OBJS = $(addprefix $(OBJS_DIR)/,$(SOURCES:.c=.o))

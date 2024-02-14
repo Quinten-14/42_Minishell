@@ -18,6 +18,14 @@
 # define DEBUG_MODE true
 #endif
 
+/* Enums */
+
+typedef enum    e_exit
+{
+    SUCCESS,
+    ERROR,
+}               t_exit;
+
 /* Linked Lists */
 typedef struct  s_input_list
 {
@@ -46,7 +54,8 @@ typedef struct  s_ASTNode
 
 int get_pwd(void);
 int ft_echo(char **args);
-void    lexer(char *prompt);
+t_input     *lexer(char *prompt);
 char    *check_types(char *str, int i, char **arr);
+int quotes_checker(char *str);
 
 #endif
