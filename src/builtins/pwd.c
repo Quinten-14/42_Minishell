@@ -12,6 +12,5 @@ int get_pwd(void)
         ft_putendl_fd(cwd, 1);
         return (0);
     }
-    // throw error
-    return (1);
+    return (throw_error("pwd Error", 0));
 }
