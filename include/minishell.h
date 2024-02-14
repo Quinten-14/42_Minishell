@@ -1,6 +1,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+/* Includes */
+
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -10,6 +12,12 @@
 #include <stdbool.h>
 #include <limits.h>
 
+/* Defines */
+
+#ifndef DEBUG_MODE
+# define DEBUG_MODE true
+#endif
+
 /* Linked Lists */
 typedef struct  s_input_list
 {
@@ -17,6 +25,24 @@ typedef struct  s_input_list
     char    *type;
     struct s_input_list *next;
 }           t_input;
+
+/* Abstract Syntax Tree */
+typedef struct  s_ASTNode
+{
+    char    *type;
+    union
+    {
+        char    *group;
+        struct
+        {
+            struct s_ASTNode    *left;
+            struct s_ASTNode    *right;
+            char    *content;
+        } u_expression;
+    };
+}           t_ASTNode;
+
+/* Functions */
 
 int get_pwd(void);
 int ft_echo(char **args);
