@@ -32,6 +32,7 @@ typedef struct  s_input_list
     char    *content;
     char    *type;
     struct s_input_list *next;
+    struct s_input_list *prev;
 }           t_input;
 
 /* Abstract Syntax Tree */
@@ -49,6 +50,19 @@ typedef struct  s_ASTNode
         } u_expression;
     };
 }           t_ASTNode;
+
+/* Enviroment Struct */
+typedef struct  s_env
+{
+    char *content;
+    struct s_env    *next;
+}           t_env;
+
+typedef struct  s_data
+{
+    char    **env;
+    t_env   env_list;
+}           t_data;
 
 /* Functions */
 

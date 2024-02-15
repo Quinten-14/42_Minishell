@@ -11,9 +11,11 @@ static t_input	*new_list(char *str, int i, char **arr)
 	new->content = str;
 	new->type = check_types(str, i, arr);
 	new->next = NULL;
+    new->prev = NULL;
 	return (new);
 }
 
+// still need protection for if new list fails
 static void	add_node(t_input **head, char *str, int i, char **arr)
 {
 	t_input	*new_node;
@@ -32,6 +34,7 @@ static void	add_node(t_input **head, char *str, int i, char **arr)
 			current = current->next;
 		}
 		current->next = new_node;
+        new_node->prev = current;
 	}
 }
 

@@ -37,6 +37,8 @@ static char	*var_type(char *str)
 	}
 	if (amount_signs % 2 == 0)
 		return ("Process-ID");
+	else if (amount_signs % 2 == 1 && ft_strcmp(str, "$?") == 0)
+		return ("Last-Exit");
 	else
 		return ("Var-Expension");
 }
