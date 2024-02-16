@@ -72,5 +72,6 @@ t_input     *lexer(char *prompt);
 char    *check_types(char *str, int i, char **arr);
 int quotes_checker(char *str);
 int throw_error(char *str, int exit_code);
+t_env   *init_env_list(char **envp);
 
 #endif

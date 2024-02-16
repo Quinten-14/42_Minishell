@@ -20,7 +20,7 @@ CYAN = \033[0;96m
 WHITE = \033[0;97m
 
 SOURCES = main.c builtins/pwd.c builtins/echo.c lexer/lexer.c lexer/type.c \
-		  parser/parser.c errors/thrower.c
+		  parser/parser.c errors/thrower.c environment/env_init.c
 
 SRCS = $(addprefix $(SRCS_DIR)/,$(SOURCES))
 OBJS = $(addprefix $(OBJS_DIR)/,$(SOURCES:.c=.o))
