@@ -22,6 +22,8 @@ int main(int ac, char **av, char **envp)
         str = readline("Minishell-42: ");
         add_history(str);
         input = lexer(str);
+        if (ft_strcmp(str, "env") == 0)
+            put_env(&data.env_list);
         (void)input;
         //parser(input);
     }

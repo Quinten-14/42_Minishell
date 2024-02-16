@@ -1,13 +1,18 @@
 #include "../../include/minishell.h"
+#include "../../include/libft.h"
 
+// maybe needs a different split that only splits at first =
 static t_env    *new_list(char *content)
 {
     t_env   *env;
+    char    **vars;
 
+    vars = ft_split(content, '=');
     env = malloc(sizeof(t_env));
     if (!env)
         return (NULL);
-    env->content = content;
+    env->content = vars[1];
+    env->var_name = vars[0];
     env->next = NULL;
     return (env);
 }
@@ -36,9 +41,10 @@ static void print_list(t_env *head)
     curr = head;
     while (curr != NULL)
     {
-        printf("environment content: %s\n", curr->content);
+        printf("env var_name: %s\nenv content: %s\n", curr->var_name, curr->content);
         curr = curr->next;
     }
+    printf("\nAll Environment Variables Loaded In\n\n");
 }
 
 t_env   *init_env_list(char **envp)

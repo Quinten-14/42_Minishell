@@ -54,7 +54,8 @@ typedef struct  s_ASTNode
 /* Enviroment Struct */
 typedef struct  s_env
 {
-    char *content;
+    char    *content;
+    char    *var_name;
     struct s_env    *next;
 }           t_env;
 
@@ -73,5 +74,6 @@ char    *check_types(char *str, int i, char **arr);
 int quotes_checker(char *str);
 int throw_error(char *str, int exit_code);
 t_env   *init_env_list(char **envp);
+int put_env(t_env *env);
 
 #endif

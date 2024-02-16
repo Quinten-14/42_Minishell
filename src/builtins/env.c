@@ -4,10 +4,10 @@ int put_env(t_env *env)
 {
     while (env && env->next)
     {
-        printf("%s\n", env->content);
+        printf("%s=%s\n", env->var_name, env->content);
         env = env->next;
     }
     if (env)
-        printf("%s\n", env->content);
+        printf("%s=%s\n", env->var_name, env->content);
     return (SUCCESS);
 }
