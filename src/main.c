@@ -9,9 +9,9 @@ static void setup_shell(char **envp, t_data *data)
 
 int main(int ac, char **av, char **envp)
 {
-    char    *str;
     t_input *input;
     t_data  data;
+    char    **splitted;
 
     (void)ac;
     (void)av;
@@ -19,13 +19,16 @@ int main(int ac, char **av, char **envp)
     using_history();
     while (1)
     {
-        str = readline("Minishell-42: ");
-        add_history(str);
-        input = lexer(str);
-        if (ft_strcmp(str, "env") == 0)
+        data.prompt = readline("Minishell-42: ");
+        add_history(data.prompt);
+        input = lexer(data.prompt);
+        splitted = ft_split(data.prompt, ' '); //this is just for testing;
+        if (ft_strcmp(splitted[0], "env") == 0)
             put_env(&data.env_list);
-        if (ft_strcmp(str, "cd") == 0)
-            cd_command(input, &data.env_list);
+        if (ft_strcmp(splitted[0], "cd") == 0)
+            cd_command(splitted, &data.env_list);
+        if (ft_strcmp(splitted[0], "pwd") == 0)
+            get_pwd();
         (void)input;
         //parser(input);
     }

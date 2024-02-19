@@ -65,6 +65,7 @@ t_env   *init_env_list(char **envp)
     }
     if (DEBUG_MODE == true)
         print_list(environment, true);
-    printf("OLDPWD Exists: %d\n", node_exists("OLDPWD", &environment));
+    if (DEBUG_MODE == true)
+        printf("OLDPWD Exists: %d\n", node_exists("OLDPWD", &environment));
     return (environment);
 }

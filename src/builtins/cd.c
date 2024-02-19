@@ -1,4 +1,6 @@
 #include "../../include/minishell.h"
+#include <sys/syslimits.h>
+#include <unistd.h>
 
 /* CD Basics */
 
@@ -9,16 +11,86 @@
  * We need to update OLDPWD and PWD environment variables
  * If minishell started and no OLDPWD set it should give a error message -
  * when doing CD -
-*/
+ */
 
-void    cd_command(t_input *input, t_env *env)
+// function to create or update oldpwd
+static void	update_oldpwd(t_env *env)
 {
-    char    *old_pwd;
-    char    CWD[PATH_MAX];
-    (void)input;
-    old_pwd = getcwd(CWD, PATH_MAX);
-    if (!old_pwd)
-        return ;
-    old_pwd = ft_strjoin("OLDPWD=", old_pwd);
-    add_node(&env, ft_strjoin("OLDPWD=", old_pwd));
+	char	cwd[PATH_MAX];
+
+	getcwd(cwd, PATH_MAX);
+	while (env != NULL && (ft_strcmp(env->var_name, "OLDPWD") != 0))
+	{
+		if (env->next == NULL)
+		{
+			add_node(&env, ft_strjoin("OLDPWD=", cwd));
+			return ;
+		}
+		env = env->next;
+	}
+	env->content = ft_strdup(cwd);
+	if (env->content == NULL)
+	{
+		// needs to be changed in correct error handler
+		printf("Allocation Failed\n");
+		exit(1);
+	}
+}
+
+static void	update_pwd(t_env *env)
+{
+	char	cwd[PATH_MAX];
+
+	getcwd(cwd, PATH_MAX);
+	while (env != NULL && (ft_strcmp(env->var_name, "PWD") != 0))
+		env = env->next;
+	env->content = ft_strdup(cwd);
+	if (env->content == NULL)
+	{
+		// needs to be changed in correct error handler
+		fprintf(stderr, "Allocation Failed\n");
+		exit(1);
+	}
+}
+
+static char	*get_from_pwd(t_env *env, char *search)
+{
+	char	*path;
+
+	while (env != NULL)
+	{
+		if (ft_strcmp(env->var_name, search) == 0)
+		{
+			path = ft_strdup(env->content);
+			if (path == NULL)
+			{
+				fprintf(stderr, "Allocation Failed\n");
+				exit(1);
+			}
+			return (path);
+		}
+		env = env->next;
+	}
+	return (NULL);
+}
+
+void	cd_command(char **strs, t_env *env)
+{
+    char    *path;
+
+    if (strs[1] == NULL)
+        path = get_from_pwd(env, "HOME");
+    else if (ft_strcmp(strs[1], "~") == 0)
+        path = get_from_pwd(env, "HOME");
+    else if (ft_strcmp(strs[1], "-") == 0)
+        path = get_from_pwd(env, "OLDPWD");
+    else if (strs[1][0] == '~' && strs[1][1] == '/')
+        path = ft_strjoin(get_from_pwd(env, "HOME"), strs[1] + 1);
+    else
+        path = strs[1];
+	update_oldpwd(env);
+	if (chdir(path) == 0)
+		update_pwd(env);
+	else
+		perror("chdir");
 }

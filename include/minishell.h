@@ -15,7 +15,7 @@
 /* Defines */
 
 #ifndef DEBUG_MODE
-# define DEBUG_MODE true
+# define DEBUG_MODE false
 #endif
 
 /* Enums */
@@ -64,6 +64,7 @@ typedef struct  s_data
 {
     char    **env;
     t_env   env_list;
+    char    *prompt;
 }           t_data;
 
 /* Functions */
@@ -78,6 +79,6 @@ t_env   *init_env_list(char **envp);
 int put_env(t_env *env);
 int node_exists(char *str, t_env **head);
 void    add_node(t_env **head, char *content);
-void    cd_command(t_input *input, t_env *env);
+void    cd_command(char **strs, t_env *env);
 
 #endif
