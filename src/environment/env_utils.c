@@ -7,7 +7,7 @@ int   node_exists(char *str, t_env **head)
     current = *head;
     while (current->next != NULL)
     {
-        if (ft_strcmp(str, current->var_name))
+        if (ft_strcmp(str, current->var_name) == 0)
             return (1);
         current = current->next;
     }

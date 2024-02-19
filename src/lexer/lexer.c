@@ -16,7 +16,7 @@ static t_input	*new_list(char *str, int i, char **arr)
 }
 
 // still need protection for if new list fails
-static void	add_node(t_input **head, char *str, int i, char **arr)
+static void	add_node_doubly(t_input **head, char *str, int i, char **arr)
 {
 	t_input	*new_node;
 	t_input	*current;
@@ -61,7 +61,7 @@ t_input	*lexer(char *prompt)
 	i = 1;
 	while (splitted[i])
 	{
-		add_node(&input_list, splitted[i], i, splitted);
+		add_node_doubly(&input_list, splitted[i], i, splitted);
 		i++;
 	}
 	if (DEBUG_MODE == true)

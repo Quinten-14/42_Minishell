@@ -56,6 +56,7 @@ typedef struct  s_env
 {
     char    *content;
     char    *var_name;
+    bool    exported;
     struct s_env    *next;
 }           t_env;
 
@@ -76,5 +77,7 @@ int throw_error(char *str, int exit_code);
 t_env   *init_env_list(char **envp);
 int put_env(t_env *env);
 int node_exists(char *str, t_env **head);
+void    add_node(t_env **head, char *content);
+void    cd_command(t_input *input, t_env *env);
 
 #endif

@@ -9,4 +9,16 @@
  * We need to update OLDPWD and PWD environment variables
  * If minishell started and no OLDPWD set it should give a error message -
  * when doing CD -
- */
+*/
+
+void    cd_command(t_input *input, t_env *env)
+{
+    char    *old_pwd;
+    char    CWD[PATH_MAX];
+    (void)input;
+    old_pwd = getcwd(CWD, PATH_MAX);
+    if (!old_pwd)
+        return ;
+    old_pwd = ft_strjoin("OLDPWD=", old_pwd);
+    add_node(&env, ft_strjoin("OLDPWD=", old_pwd));
+}

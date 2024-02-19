@@ -21,7 +21,7 @@ WHITE = \033[0;97m
 
 SOURCES = main.c builtins/pwd.c builtins/echo.c lexer/lexer.c lexer/type.c \
 		  parser/parser.c errors/thrower.c environment/env_init.c \
-		  builtins/env.c environment/env_utils.c
+		  builtins/env.c environment/env_utils.c builtins/cd.c
 
 SRCS = $(addprefix $(SRCS_DIR)/,$(SOURCES))
 OBJS = $(addprefix $(OBJS_DIR)/,$(SOURCES:.c=.o))

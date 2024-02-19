@@ -24,6 +24,8 @@ int main(int ac, char **av, char **envp)
         input = lexer(str);
         if (ft_strcmp(str, "env") == 0)
             put_env(&data.env_list);
+        if (ft_strcmp(str, "cd") == 0)
+            cd_command(input, &data.env_list);
         (void)input;
         //parser(input);
     }
