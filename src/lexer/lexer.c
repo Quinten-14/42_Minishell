@@ -56,14 +56,22 @@ t_input	*lexer(char *prompt)
 	t_input	*input_list;
 	int		i;
 
-	splitted = ft_split(prompt, ' ');
+	splitted = convert_input(prompt);
+	if (!splitted)
+	{
+		throw_error("syntax error", 2);
+		return (0);
+	}
 	input_list = new_list(splitted[0], 0, splitted);
+//	free(splitted[0]);
 	i = 1;
 	while (splitted[i])
 	{
 		add_node(&input_list, splitted[i], i, splitted);
+//		free(splitted[i]);
 		i++;
 	}
+//	free(splitted);
 	if (DEBUG_MODE == true)
 		print_list(input_list);
     return (input_list);

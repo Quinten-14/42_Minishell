@@ -10,7 +10,16 @@ static bool	check_redir(char *str)
 		return (false);
 }
 
-static char	*redir_type(char *str)
+static bool	check_pipe(char *str)
+{
+	if (ft_strcmp(str, "|") == 0 || ft_strcmp(str, "||") == 0
+		|| ft_strcmp(str, "&&") == 0)
+		return (true);
+	else
+		return (false);
+}
+
+static char	*redir_type(char *str, bool *command_inline)
 {
 	if (ft_strcmp(str, "<<") == 0)
 		return ("here_doc");
@@ -18,8 +27,17 @@ static char	*redir_type(char *str)
 		return ("less");
 	else if (ft_strcmp(str, ">") == 0)
 		return ("great");
-	else
+	else if (ft_strcmp(str, ">>") == 0)
 		return ("dgreat");
+	else if (ft_strcmp(str, "|") == 0)
+	{
+		*command_inline = false;
+		return ("pipe");
+	}
+	else if (ft_strcmp(str, "||") == 0)
+		return ("or");
+	else
+		return ("and");
 }
 
 static char	*var_type(char *str)
@@ -50,13 +68,8 @@ char	*check_types(char *str, int i, char **arr)
 
 	if (i == 0)
 		command_inline = false;
-	if (check_redir(str) == true)
-		type = redir_type(str);
-	else if (ft_strcmp(str, "|") == 0)
-	{
-		type = "pipe";
-		command_inline = false;
-	}
+	if (check_redir(str) == true || check_pipe(str) == true)
+		type = redir_type(str, &command_inline);
 	else if (i > 0 && (check_redir(arr[i - 1]) == true))
 		type = "file";
 	else if (ft_strchr(str, '$') != 0)

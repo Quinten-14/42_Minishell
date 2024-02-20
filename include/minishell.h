@@ -75,5 +75,6 @@ int quotes_checker(char *str);
 int throw_error(char *str, int exit_code);
 t_env   *init_env_list(char **envp);
 int put_env(t_env *env);
+char	**convert_input(char *str);
 
 #endif

@@ -1,6 +1,8 @@
 #include "../include/minishell.h"
 #include <readline/readline.h>
 
+#include "../include/ft_printf.h"
+
 static void setup_shell(char **envp, t_data *data)
 {
     data->env = envp;
@@ -20,6 +22,8 @@ int main(int ac, char **av, char **envp)
     while (1)
     {
         str = readline("Minishell-42: ");
+		if (!ft_strlen(str))
+			continue;
         add_history(str);
         input = lexer(str);
         if (ft_strcmp(str, "env") == 0)
