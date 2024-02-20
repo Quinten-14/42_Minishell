@@ -1,6 +1,4 @@
 #include "../../include/minishell.h"
-#include <sys/syslimits.h>
-#include <unistd.h>
 
 /* CD Basics */
 
@@ -53,7 +51,7 @@ static void	update_pwd(t_env *env)
 	}
 }
 
-static char	*get_from_pwd(t_env *env, char *search)
+static char	*get_from_env(t_env *env, char *search)
 {
 	char	*path;
 
@@ -76,21 +74,31 @@ static char	*get_from_pwd(t_env *env, char *search)
 
 void	cd_command(char **strs, t_env *env)
 {
-    char    *path;
+	char	*path;
 
-    if (strs[1] == NULL)
-        path = get_from_pwd(env, "HOME");
-    else if (ft_strcmp(strs[1], "~") == 0)
-        path = get_from_pwd(env, "HOME");
-    else if (ft_strcmp(strs[1], "-") == 0)
-        path = get_from_pwd(env, "OLDPWD");
-    else if (strs[1][0] == '~' && strs[1][1] == '/')
-        path = ft_strjoin(get_from_pwd(env, "HOME"), strs[1] + 1);
-    else
-        path = strs[1];
-	update_oldpwd(env);
-	if (chdir(path) == 0)
-		update_pwd(env);
+	if (strs[2] != NULL)
+	{
+		printf("Too many arguments\n");
+		return ;
+	}
+	if (strs[1] == NULL)
+		path = get_from_env(env, "HOME");
+	else if (ft_strcmp(strs[1], "~") == 0)
+		path = get_from_env(env, "HOME");
+	else if (ft_strcmp(strs[1], "-") == 0)
+		path = get_from_env(env, "OLDPWD");
+	else if (strs[1][0] == '~' && strs[1][1] == '/')
+		path = ft_strjoin(get_from_env(env, "HOME"), strs[1] + 1);
 	else
-		perror("chdir");
+	{
+		path = strs[1];
+	}
+	update_oldpwd(env);
+	//if (chdir(path) == 0)
+	//	update_pwd(env);
+	//else
+	//	perror("chdir");
+	if (chdir(path) < 0)
+		return ((void)perror("chdir"));
+	update_pwd(env);
 }

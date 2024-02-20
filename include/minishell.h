@@ -80,5 +80,6 @@ int put_env(t_env *env);
 int node_exists(char *str, t_env **head);
 void    add_node(t_env **head, char *content);
 void    cd_command(char **strs, t_env *env);
+void    unset_command(t_env *env, char **strs);
 
 #endif

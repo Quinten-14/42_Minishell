@@ -20,6 +20,8 @@ int main(int ac, char **av, char **envp)
     while (1)
     {
         data.prompt = readline("Minishell-42: ");
+        if (ft_strlen(data.prompt) == 0)
+            continue;
         add_history(data.prompt);
         input = lexer(data.prompt);
         splitted = ft_split(data.prompt, ' '); //this is just for testing;
@@ -29,6 +31,8 @@ int main(int ac, char **av, char **envp)
             cd_command(splitted, &data.env_list);
         if (ft_strcmp(splitted[0], "pwd") == 0)
             get_pwd();
+        if (ft_strcmp(splitted[0], "unset") == 0)
+            unset_command(&data.env_list, splitted);
         (void)input;
         //parser(input);
     }
