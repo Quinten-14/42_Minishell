@@ -1,4 +1,5 @@
 #include "../../include/minishell.h"
+#include "../../include/ft_printf.h"
 
 /* This file has the error thrower in it */
 
@@ -6,6 +7,6 @@
 
 int throw_error(char *str, int exit_code)
 {
-    printf("%s\n", str);
+    ft_printf("%s\n", str);
     return (exit_code);
 }
