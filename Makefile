@@ -3,9 +3,10 @@ INCLUDES = include
 SRCS_DIR = src
 OBJS_DIR = objs
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -Iinclude
 RM = rm -rf
 LIBFT = libft
+READLINE_FLAGS = -L/opt/homebrew/opt/readline/lib -lreadline -lhistory
 
 # Colors
 DEF_COLOR = \033[0;39m
@@ -18,7 +19,9 @@ MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
 
-SOURCES = main.c
+SOURCES = main.c input/input.c input/lexer/lexer.c input/lexer/split_config.c \
+		  input/lexer/split_input.c input/lexer/split_utils.c \
+		  input/lexer/lexer_list.c env/env.c
 
 SRCS = $(addprefix $(SRCS_DIR)/,$(SOURCES))
 OBJS = $(addprefix $(OBJS_DIR)/,$(SOURCES:.c=.o))
@@ -30,11 +33,12 @@ lib:
 	@make -C $(LIBFT)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) -L $(LIBFT) -o $(NAME) $(OBJS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)/libft.a $(READLINE_FLAGS)
 	@echo "$(GREEN)Project successfully compiled$(DEF_COLOR)"
 
 tmp:
-	@mkdir -p objs
+	@mkdir -p $(OBJS_DIR) $(addprefix $(OBJS_DIR)/,$(dir $(SOURCES)))
+	@echo "$(GREEN)Creating temporary directory: $(OBJS_DIR)$(DEF_COLOR)"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(INCLUDES)/$(NAME).h
 	@$(CC) $(CFLAGS) -c -o $@ $<

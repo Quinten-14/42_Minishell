@@ -1,6 +1,17 @@
 #include "../include/minishell.h"
 
-int main(void)
+// Main Logic Function
+
+// Main Function
+int	main(int ac, char **av, char **envp)
 {
-    printf("Initial Main\n");
+	t_data	data;
+
+	(void)ac;
+	(void)av;
+    init_env_list(envp);
+	while (data.exit == false)
+	{
+		input(&data);
+	}
 }
