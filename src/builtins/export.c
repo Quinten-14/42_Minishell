@@ -30,7 +30,9 @@ static int export_syntax(char *str)
 
 void    handle_export(t_env *env, char *str)
 {
-
+    (void)env;
+    (void)str;
+    printf("Handled Export\n");
 }
 
 void    export_command(t_env *env, char **strs)

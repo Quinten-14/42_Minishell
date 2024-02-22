@@ -17,14 +17,16 @@ static void delete_node(t_env **head, char *search) {
     t_env *current = *head;
     t_env *prev = NULL;
 
-    if (current != NULL && strcmp(current->var_name, search) == 0) {
+    if (current != NULL && ft_strcmp(current->var_name, search) == 0) 
+    {
         *head = current->next;
         free(current->var_name);
         free(current->content);
         free(current);
         return;
     }
-    while (current != NULL && strcmp(current->var_name, search) != 0) {
+    while (current != NULL && ft_strcmp(current->var_name, search) != 0) 
+    {
         prev = current;
         current = current->next;
     }
