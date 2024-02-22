@@ -33,6 +33,8 @@ int main(int ac, char **av, char **envp)
             get_pwd();
         if (ft_strcmp(splitted[0], "unset") == 0)
             unset_command(&data.env_list, splitted);
+        if (ft_strcmp(splitted[0], "export") == 0)
+            export_command(&data.env_list, splitted);
         (void)input;
         //parser(input);
     }

@@ -22,6 +22,8 @@ static void	update_oldpwd(t_env *env)
 		if (env->next == NULL)
 		{
 			add_node(&env, ft_strjoin("OLDPWD=", cwd));
+            if (DEBUG_MODE)
+                printf("Created OLDPWD In ENV\n");
 			return ;
 		}
 		env = env->next;
@@ -33,6 +35,8 @@ static void	update_oldpwd(t_env *env)
 		printf("Allocation Failed\n");
 		exit(1);
 	}
+    if (DEBUG_MODE)
+        printf("Updated OLDPWD In ENV\n");
 }
 
 static void	update_pwd(t_env *env)
@@ -49,6 +53,8 @@ static void	update_pwd(t_env *env)
 		fprintf(stderr, "Allocation Failed\n");
 		exit(1);
 	}
+    if (DEBUG_MODE)
+        printf("Updated PWD In ENV\n");
 }
 
 static char	*get_from_env(t_env *env, char *search)
@@ -72,15 +78,18 @@ static char	*get_from_env(t_env *env, char *search)
 	return (NULL);
 }
 
+
+// still need to check for - so its not a flag
 void	cd_command(char **strs, t_env *env)
 {
 	char	*path;
 
-	if (strs[2] != NULL)
-	{
-		printf("Too many arguments\n");
-		return ;
-	}
+	if (strs[1] != NULL && strs[2] != NULL)
+		return ((void)printf("Too many arguments\n"));
+    if (strs[1] != NULL && strs[1][0] == '-')
+    {
+        return ((void)printf("Flags are not supported\n"));
+    }
 	if (strs[1] == NULL)
 		path = get_from_env(env, "HOME");
 	else if (ft_strcmp(strs[1], "~") == 0)
@@ -94,11 +103,7 @@ void	cd_command(char **strs, t_env *env)
 		path = strs[1];
 	}
 	update_oldpwd(env);
-	//if (chdir(path) == 0)
-	//	update_pwd(env);
-	//else
-	//	perror("chdir");
 	if (chdir(path) < 0)
-		return ((void)perror("chdir"));
+		return ((void)perror("cd"));
 	update_pwd(env);
 }
