@@ -21,7 +21,7 @@ WHITE = \033[0;97m
 
 SOURCES = main.c input/input.c input/lexer/lexer.c input/lexer/split_config.c \
 		  input/lexer/split_input.c input/lexer/split_utils.c \
-		  input/lexer/lexer_list.c env/env.c
+		  input/lexer/lexer_list.c env/env.c builtins/env.c env/env_get_set.c \
 
 SRCS = $(addprefix $(SRCS_DIR)/,$(SOURCES))
 OBJS = $(addprefix $(OBJS_DIR)/,$(SOURCES:.c=.o))
