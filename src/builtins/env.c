@@ -1,5 +1,8 @@
 #include "../../include/minishell.h"
 
+// this one doesnt show exports with only var name and no value
+// export without arguments does
+
 int env_command(t_env *env)
 {
     if (!env)
