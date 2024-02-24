@@ -49,6 +49,7 @@ typedef struct  s_data
     t_env   env_list;
     char    *prompt;
     bool    exit;
+    int ret;
 }               t_data;
 
 #endif

@@ -14,4 +14,5 @@ int	main(int ac, char **av, char **envp)
 	{
 		input(&data);
 	}
+    return (data.ret);
 }

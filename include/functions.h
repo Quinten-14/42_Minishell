@@ -20,6 +20,7 @@ int env_command(t_env *env);
 int get_pwd(void);
 void    unset_command(t_env *env, char **strs);
 void    cd_command(char **strs, t_env *env);
+void    exit_command(t_data *data, char **prompt);
 
 /* Utils */
 void    throw_fatal(char *str, int exit_code);
