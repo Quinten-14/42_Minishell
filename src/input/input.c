@@ -33,4 +33,6 @@ void	input(t_data *data)
         cd_command(splitted, &data->env_list);
     if (ft_strcmp(splitted[0], "exit") == 0)
         exit_command(data, splitted);
+    if (ft_strcmp(splitted[0], "echo") == 0)
+        echo_command(splitted);
 }
