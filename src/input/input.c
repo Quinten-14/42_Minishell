@@ -1,25 +1,18 @@
 #include "../../include/libft.h"
 #include "../../include/minishell.h"
 
-void	line_reader(t_data *data)
-{
-	data->prompt = readline("Minishell-42: ");
-    if (ft_strlen(data->prompt) == 0)
-        return ;
-	add_history(data->prompt);
-}
-
 void	input(t_data *data)
 {
 	t_input	*input;
     char **splitted;    // just for testing
 
-	line_reader(data);
+	data->prompt = readline("Minishell-42: ");
     if (ft_strlen(data->prompt) == 0)
         return ;
 	input = lexer(data->prompt);
     if (!input)
-        return ;   
+        return ;
+    add_history(data->prompt);
     // use the input for the parser to then make a AST
     splitted = ft_split(data->prompt, ' ');
     if (ft_strcmp(splitted[0], "pwd") == 0)
