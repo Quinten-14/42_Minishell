@@ -35,4 +35,6 @@ void	input(t_data *data)
         exit_command(data, splitted);
     if (ft_strcmp(splitted[0], "echo") == 0)
         echo_command(splitted);
+    if (ft_strcmp(splitted[0], "export") == 0)
+        export_command(splitted, &data->env_list);
 }
