@@ -25,6 +25,21 @@ static bool flag_checker(char *str)
     return (true);
 }
 
+static void writer(char **strs, int position, bool flag)
+{
+    if (flag)
+    {
+        ft_putstr_fd(strs[position], 1);
+        write(1, " ", 1);
+    }
+    else
+    {
+        ft_putstr_fd(strs[position], 1);
+        if (strs[position + 1] && strs[position][0] != '\0')
+            write(1, " ", 1);
+    }
+}
+
 int echo_command(char **args)
 {
     int i;
@@ -40,16 +55,9 @@ int echo_command(char **args)
                 if (flag_checker(args[i]) == true)
                     n_flag = true;
                 else
-                {
-                    ft_putstr_fd(args[i], 1);
-                    write(1, " ", 1);
-                }
+                    writer(args, i, true);
             else
-            {
-                ft_putstr_fd(args[i], 1);
-                if (args[i + 1] && args[i][0] != '\0')
-				write(1, " ", 1);
-            }
+                writer(args, i, false);
             i++;
         }
     }
