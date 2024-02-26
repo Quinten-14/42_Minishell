@@ -1,14 +1,5 @@
 #include "../../include/minishell.h"
 #include "../../include/libft.h"
-#include <stdio.h>
-
-// echo prints the input back out. If you do echo "Testing"
-// it prints Testing to the terminal.
-// If you put -n behind it then it doesn't print the newline at the end
-
-// function to see the amount of arguments. <= 1 is not possible.
-// Check if the second argument is -n. If not just print the input
-// If -n is found print without newline. Text should be infront of new prompt
 
 static int    number_args(char **args)
 {
@@ -20,32 +11,57 @@ static int    number_args(char **args)
     return (i);
 }
 
-int ft_echo(char **args)
+static bool flag_checker(char *str)
 {
     int i;
-    int amount_args;
-    bool n_flag;
 
-    amount_args = number_args(args) - 1;
     i = 1;
-    n_flag = false;
-    if (ft_strcmp(args[1], "-n") == 0)
+    while (str[i])
     {
-        n_flag = true;
+        if (str[i] != 'n')
+            return (false);
         i++;
     }
-    while (i < amount_args)
-    {
-        printf("%s ", args[i]);
-        i++;
-    }
-    if (i == amount_args && n_flag == false)
-        printf("%s\n", args[i]);
-    else if (i == amount_args && n_flag == true)
-        printf("%s", args[i]);
-    return (0);
+    return (true);
 }
 
-// has as argument an array of strings
+static void writer(char **strs, int position, bool flag)
+{
+    if (flag)
+    {
+        ft_putstr_fd(strs[position], 1);
+        write(1, " ", 1);
+    }
+    else
+    {
+        ft_putstr_fd(strs[position], 1);
+        if (strs[position + 1] && strs[position][0] != '\0')
+            write(1, " ", 1);
+    }
+}
 
-// Still need to find a way to work with the spaces (Done normally)
+int echo_command(char **args)
+{
+    int i;
+    bool    n_flag;
+
+    i = 1;
+    n_flag = false;
+    if (number_args(args) > 1)
+    {
+        while (args[i])
+        {
+            if (args[i][0] == '-')
+                if (flag_checker(args[i]) == true)
+                    n_flag = true;
+                else
+                    writer(args, i, true);
+            else
+                writer(args, i, false);
+            i++;
+        }
+    }
+    if (n_flag == false)
+        write(1, "\n", 1);
+    return (SUCCESS);
+}

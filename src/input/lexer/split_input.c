@@ -1,17 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   split_input.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lde-paep <lde-paep@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 16:05:22 by lde-paep          #+#    #+#             */
-/*   Updated: 2024/02/20 11:36:37 by lde-paep         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../../include/libft.h"
-#include <stdbool.h>
+#include "../../../include/libft.h"
+#include "../../../include/minishell.h"
 
 static void	check_quotes(char c, bool *sq, bool *dq)
 {

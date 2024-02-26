@@ -19,9 +19,11 @@ MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
 
-SOURCES = main.c builtins/pwd.c builtins/echo.c lexer/lexer.c lexer/type.c \
-		  parser/parser.c errors/thrower.c environment/env_init.c \
-		  builtins/env.c split/config.c split/split_input.c split/utils.c
+SOURCES = main.c input/input.c input/lexer/lexer.c input/lexer/split_config.c \
+		  input/lexer/split_input.c input/lexer/split_utils.c \
+		  input/lexer/lexer_list.c env/env.c builtins/env.c env/env_get_set.c \
+		  utils/errors.c builtins/pwd.c builtins/unset.c builtins/cd.c \
+		  env/env_set_utils.c builtins/exit.c builtins/echo.c builtins/export.c\
 
 SRCS = $(addprefix $(SRCS_DIR)/,$(SOURCES))
 OBJS = $(addprefix $(OBJS_DIR)/,$(SOURCES:.c=.o))

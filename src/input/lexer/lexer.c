@@ -1,5 +1,9 @@
-#include "../../include/libft.h"
-#include "../../include/minishell.h"
+#include "../../../include/libft.h"
+#include "../../../include/minishell.h"
+
+void		add_node_input(t_input **head, char *str, int i, char **arr);
+t_input		*new_list(char *str, int i, char **arr);
+void		print_list(t_input *head);
 
 static bool	check_redir(char *str)
 {
@@ -10,16 +14,7 @@ static bool	check_redir(char *str)
 		return (false);
 }
 
-static bool	check_pipe(char *str)
-{
-	if (ft_strcmp(str, "|") == 0 || ft_strcmp(str, "||") == 0
-		|| ft_strcmp(str, "&&") == 0)
-		return (true);
-	else
-		return (false);
-}
-
-static char	*redir_type(char *str, bool *command_inline)
+static char	*redir_type(char *str)
 {
 	if (ft_strcmp(str, "<<") == 0)
 		return ("here_doc");
@@ -27,17 +22,8 @@ static char	*redir_type(char *str, bool *command_inline)
 		return ("less");
 	else if (ft_strcmp(str, ">") == 0)
 		return ("great");
-	else if (ft_strcmp(str, ">>") == 0)
-		return ("dgreat");
-	else if (ft_strcmp(str, "|") == 0)
-	{
-		*command_inline = false;
-		return ("pipe");
-	}
-	else if (ft_strcmp(str, "||") == 0)
-		return ("or");
 	else
-		return ("and");
+		return ("dgreat");
 }
 
 static char	*var_type(char *str)
@@ -68,8 +54,13 @@ char	*check_types(char *str, int i, char **arr)
 
 	if (i == 0)
 		command_inline = false;
-	if (check_redir(str) == true || check_pipe(str) == true)
-		type = redir_type(str, &command_inline);
+	if (check_redir(str) == true)
+		type = redir_type(str);
+	else if (ft_strcmp(str, "|") == 0)
+	{
+		type = "pipe";
+		command_inline = false;
+	}
 	else if (i > 0 && (check_redir(arr[i - 1]) == true))
 		type = "file";
 	else if (ft_strchr(str, '$') != 0)
@@ -84,5 +75,32 @@ char	*check_types(char *str, int i, char **arr)
 	return (type);
 }
 
-// normally works fine except for
-// grep "error" log.txt | sort > sorted_errors.txt
+t_input	*lexer(char *prompt)
+{
+	char	**splitted;
+	t_input	*input_list;
+	int		i;
+
+	input_list = NULL;
+	splitted = split_input(prompt);
+	if (!splitted)
+		return (NULL);
+    if (!splitted[0])
+	{
+        return (NULL);
+	}
+	input_list = new_list(splitted[0], 0, splitted);
+    if (!input_list)
+	{
+        return (NULL);
+	}
+	i = 1;
+	while (splitted[i])
+	{
+		add_node_input(&input_list, splitted[i], i, splitted);
+		i++;
+	}
+	if (DEBUG_MODE)
+		print_list(input_list);
+	return (input_list);
+}
