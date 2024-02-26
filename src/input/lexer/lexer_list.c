@@ -24,7 +24,9 @@ void	add_node_input(t_input **head, char *str, int i, char **arr)
 
 	new_node = new_list(str, i, arr);
     if (!new_node)
+	{
         return ;
+	}
 	if (*head == NULL)
 	{
 		*head = new_node;

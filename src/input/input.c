@@ -8,7 +8,9 @@ void	input(t_data *data)
 
 	data->prompt = readline("Minishell-42: ");
     if (ft_strlen(data->prompt) == 0)
+	{
         return ;
+	}
 	input = lexer(data->prompt);
     if (!input)
         return ;
@@ -18,8 +20,10 @@ void	input(t_data *data)
     if (ft_strcmp(splitted[0], "pwd") == 0)
         get_pwd();
     if (ft_strcmp(splitted[0], "env") == 0)
+	{
         if (env_command(&data->env_list) == -1)
             return ;
+	}
     if (ft_strcmp(splitted[0], "unset") == 0)
         unset_command(&data->env_list, splitted);
     if (ft_strcmp(splitted[0], "cd") == 0)
