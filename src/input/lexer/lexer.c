@@ -26,27 +26,6 @@ static char	*redir_type(char *str)
 		return ("dgreat");
 }
 
-static char	*var_type(char *str)
-{
-	int	amount_signs;
-	int	i;
-
-	amount_signs = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
-			amount_signs++;
-		i++;
-	}
-	if (amount_signs % 2 == 0)
-		return ("Process-ID");
-	else if (amount_signs % 2 == 1 && ft_strcmp(str, "$?") == 0)
-		return ("Last-Exit");
-	else
-		return ("Var-Expension");
-}
-
 char	*check_types(char *str, int i, char **arr)
 {
 	char		*type;
@@ -64,7 +43,7 @@ char	*check_types(char *str, int i, char **arr)
 	else if (i > 0 && (check_redir(arr[i - 1]) == true))
 		type = "file";
 	else if (ft_strchr(str, '$') != 0)
-		type = var_type(str);
+		type = "Var-Expansion";
 	else if (i == 0 || !command_inline)
 	{
 		type = "command";

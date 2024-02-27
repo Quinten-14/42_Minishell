@@ -20,6 +20,7 @@ void	input(t_data *data)
 	head = parse_to_ast(input);
 	if (!head)
 		return ;
+    expander(head, &data->env_list);
     splitted = ft_split(data->prompt, ' ');
     if (ft_strcmp(splitted[0], "pwd") == 0)
         get_pwd();

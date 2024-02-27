@@ -20,6 +20,9 @@ void    update_env(t_env **head, char *var, char *update_val);
 void    create_env(t_env **env, char *var, char *update_val);
 void    delete_env(t_env **env, char *search);
 
+/* Expander */
+void    expander(t_ASTNode *head, t_env *env);
+
 /* Builtins */
 int		env_command(t_env *env);
 int		get_pwd(void);
