@@ -16,6 +16,32 @@ t_input	*new_list(char *str, int i, char **arr)
 	return (new);
 }
 
+t_input	*destroy_node(t_input *input)
+{
+	t_input	*tmp;
+
+	if (!input->prev)
+	{
+		tmp = NULL;
+		free(input->content);
+		free(input);
+		return (NULL);
+	}
+	tmp = input->prev;
+	tmp->next = NULL;
+	free(input->content);
+	free(input);
+	return (tmp);
+}
+
+void	free_input(t_input *input)
+{
+	while(input->next != NULL)
+		input = input->next;
+	while (input)
+		input = destroy_node(input);
+}
+
 // still need protection for if new list fails
 void	add_node_input(t_input **head, char *str, int i, char **arr)
 {

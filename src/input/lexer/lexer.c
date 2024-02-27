@@ -102,5 +102,6 @@ t_input	*lexer(char *prompt)
 	}
 	if (DEBUG_MODE)
 		print_list(input_list);
+	free_array(splitted);
 	return (input_list);
 }
