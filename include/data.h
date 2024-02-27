@@ -23,7 +23,7 @@ typedef struct s_ASTNode
 {
 	struct s_ASTNode	*left;
 	struct s_ASTNode	*right;
-	struct s_ASTNode	*parrent;
+	struct s_ASTNode	*parent;
 	char				*content;
 }				t_ASTNode;
 

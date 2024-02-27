@@ -1,10 +1,6 @@
 #include "../../../include/minishell.h"
 #include "../../../include/libft.h"
 
-t_ASTNode	*create_ast(char *content, int *element);
-t_ASTNode	*add_node(t_input *input, t_ASTNode *current, int *element);
-t_input		*destroy_node(t_input *input);
-t_ASTNode	*parse_to_ast(t_input *input);
 void	free_input(t_input *input);
 
 t_input	*traverse_input(t_input *input, int *element)
@@ -30,19 +26,21 @@ t_ASTNode	*build_ast(t_input *input, int element)
 
 	head = create_ast(input->content, &element);
 	curr = head;
-	ft_printf("\thead node = %s\n", head->content);
+	if (DEBUG_MODE)
+		printf("\thead node = %s\n", head->content);
 	input = input->next;
 	while (element != 0)
 	{
 		while (input->next != NULL)
 		{
-			curr = add_node(input, curr, &element);
+			curr = add_ast_node(input, curr, &element);
 			input = input->next;
 		}
-		curr = add_node(input, curr, &element);
+		curr = add_ast_node(input, curr, &element);
 		while ((curr->parent != 0) && (ft_strcmp(curr->content, "|")) != 0)
 		{
-			ft_printf("---UP---\n");
+			if (DEBUG_MODE)
+				printf("---UP---\n");
 			curr = curr->parent;
 		}
 		while ((input->prev != 0) && (ft_strcmp(input->type, "pipe") != 0))

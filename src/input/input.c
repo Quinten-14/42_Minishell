@@ -5,6 +5,7 @@ void	input(t_data *data)
 {
 	t_input	*input;
     char **splitted;    // just for testing
+	t_ASTNode	*head;
 
 	data->prompt = readline("Minishell-42: ");
     if (ft_strlen(data->prompt) == 0)
@@ -16,6 +17,9 @@ void	input(t_data *data)
         return ;
     add_history(data->prompt);
     // use the input for the parser to then make a AST
+	head = parse_to_ast(input);
+	if (!head)
+		return ;
     splitted = ft_split(data->prompt, ' ');
     if (ft_strcmp(splitted[0], "pwd") == 0)
         get_pwd();

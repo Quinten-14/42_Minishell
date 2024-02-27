@@ -82,7 +82,7 @@ t_input	*lexer(char *prompt)
 	int		i;
 
 	input_list = NULL;
-	splitted = split_input(prompt);
+	splitted = convert_input(prompt);
 	if (!splitted)
 		return (NULL);
     if (!splitted[0])

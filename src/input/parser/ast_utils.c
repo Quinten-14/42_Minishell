@@ -30,7 +30,8 @@ t_ASTNode	*add_left_node(t_ASTNode *parent, char *content, int *element)
 	new_node->left = NULL;
 	new_node->right = NULL;
 	(*element)--;
-	ft_printf("---left---\n");
+	if (DEBUG_MODE)
+		printf("---left---\n");
 	return (new_node);
 }
 
@@ -47,11 +48,12 @@ t_ASTNode	*add_right_node(t_ASTNode *parent, char *content, int *element)
 	new_node->left = NULL;
 	new_node->right = NULL;
 	(*element)--;
-	ft_printf("---right---\n");
+	if (DEBUG_MODE)
+		printf("---right---\n");
 	return (new_node);
 }
 
-t_ASTNode	*add_node(t_input *input, t_ASTNode *current, int *element)
+t_ASTNode	*add_ast_node(t_input *input, t_ASTNode *current, int *element)
 {
 	t_ASTNode	*new_node;
 
@@ -67,6 +69,7 @@ t_ASTNode	*add_node(t_input *input, t_ASTNode *current, int *element)
 		new_node = add_right_node(current, input->content, element);
 	else
 		new_node = add_left_node(current, input->content, element);
-	ft_printf("%s \n", input->content);
+	if (DEBUG_MODE)
+		printf("%s \n", input->content);
 	return (new_node);
 }

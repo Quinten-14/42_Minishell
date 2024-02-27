@@ -10,7 +10,7 @@ int array_len(void **array)
     return (i);
 }
 
-void    free_array(void **array)
+void    free_array(char **array)
 {
     int i;
 

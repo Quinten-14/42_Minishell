@@ -1,4 +1,5 @@
 #include "../../../include/minishell.h"
+#include "../../../include/libft.h"
 
 char	*check_types(char *str, int i, char **arr);
 
@@ -9,7 +10,7 @@ t_input	*new_list(char *str, int i, char **arr)
 	new = malloc(sizeof(t_input));
 	if (!new)
 		return (NULL);
-	new->content = str;
+	new->content = ft_strdup(str);
 	new->type = check_types(str, i, arr);
 	new->next = NULL;
 	new->prev = NULL;
