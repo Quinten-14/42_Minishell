@@ -24,7 +24,7 @@ t_ASTNode	*build_ast(t_input *input, int element)
 	t_ASTNode	*head;
 	t_ASTNode	*curr;
 
-	head = create_ast(input->content, &element);
+	head = create_ast(input, &element);
 	curr = head;
 	if (DEBUG_MODE)
 		printf("\thead node = %s\n", head->content);

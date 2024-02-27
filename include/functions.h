@@ -7,7 +7,7 @@
 void		input(t_data *data);
 char		**convert_input(char *s);
 t_input		*lexer(char *prompt);
-t_ASTNode	*create_ast(char *content, int *element);
+t_ASTNode	*create_ast(t_input *input, int *element);
 t_ASTNode	*add_ast_node(t_input *input, t_ASTNode *current, int *element);
 t_input		*destroy_node(t_input *input);
 t_ASTNode	*parse_to_ast(t_input *input);

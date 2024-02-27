@@ -25,6 +25,7 @@ typedef struct s_ASTNode
 	struct s_ASTNode	*right;
 	struct s_ASTNode	*parent;
 	char				*content;
+	char				*type;
 }				t_ASTNode;
 
 typedef struct s_env
