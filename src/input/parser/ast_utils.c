@@ -1,21 +1,24 @@
 #include "../../../include/minishell.h"
 #include "../../../include/libft.h"
 
-
-t_ASTNode	*create_ast(t_input *input, int *element)
+t_ASTNode	*delete_ast_node(t_ASTNode *current)
 {
-	t_ASTNode	*head;
+	t_ASTNode	*parent;
 
-	head = malloc(sizeof(t_ASTNode));
-	if (!head)
+	if (!current)
 		return (NULL);
-	head->parent = NULL;
-	head->left = NULL;
-	head->right = NULL;
-	head->content = ft_strdup(input->content);
-	head->type = ft_strdup(input->type);
-	(*element)--;
-	return (head);
+	parent = current->parent;
+	if (parent)
+	{
+		if (parent->left == current)
+			parent->left = NULL;
+		if (parent->right == current)
+			parent->right = NULL;
+	}
+	free(current->content);
+	free(current->type);
+	free(current);
+	return (parent);
 }
 
 t_ASTNode	*add_left_node(t_ASTNode *parent, t_input *input, int *element)

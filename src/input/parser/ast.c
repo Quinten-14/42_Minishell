@@ -3,6 +3,33 @@
 
 void	free_input(t_input *input);
 
+void	free_AST(t_ASTNode *head)
+{
+	if (!head)
+		return ;
+	free_AST(head->left);
+	free_AST(head->right);
+	free(head->content);
+	free(head->type);
+	free(head);
+}
+
+t_ASTNode	*create_ast(t_input *input, int *element)
+{
+	t_ASTNode	*head;
+
+	head = malloc(sizeof(t_ASTNode));
+	if (!head)
+		return (NULL);
+	head->parent = NULL;
+	head->left = NULL;
+	head->right = NULL;
+	head->content = ft_strdup(input->content);
+	head->type = ft_strdup(input->type);
+	(*element)--;
+	return (head);
+}
+
 t_input	*traverse_input(t_input *input, int *element)
 {
 	if (ft_strcmp(input->type, "pipe") == 0)
