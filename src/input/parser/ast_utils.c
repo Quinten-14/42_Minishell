@@ -73,6 +73,6 @@ t_ASTNode	*add_ast_node(t_input *input, t_ASTNode *current, int *element)
 	else
 		new_node = add_left_node(current, input, element);
 	if (DEBUG_MODE)
-		printf("%s \n", input->content);
+		printf("content = %s, type = %s\n", new_node->content, new_node->type);
 	return (new_node);
 }
