@@ -26,5 +26,6 @@ void    export_command(char **strs, t_env *env);
 
 /* Utils */
 void    throw_fatal(char *str, int exit_code);
+void    free_array(void **array);
 
 #endif
