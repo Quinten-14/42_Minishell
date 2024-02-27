@@ -18,10 +18,12 @@ static bool flag_checker(char *str)
     i = 1;
     while (str[i])
     {
-        if (str[i] != 'n')
+        if (str[i] != 'n' && str[i] != '-')
             return (false);
         i++;
     }
+    if (ft_strlen(str) == 1)
+        return (false);
     return (true);
 }
 
