@@ -43,6 +43,7 @@ static void	handle_export(char *str, t_env *env)
 {
 	size_t	i;
 	size_t	j;
+	char	*substr;
 
 	i = 0;
 	while (str[i] && str[i] != '=')
@@ -50,10 +51,11 @@ static void	handle_export(char *str, t_env *env)
 	j = i;
 	if (str[i] == '=')
 		i++;
+	substr = ft_substr(str, 0, j);
 	if (ft_strlen(str) == j)
-		update_env(&env, ft_substr(str, 0, j), NULL);
+		update_env(&env, substr, NULL);
 	else
-		update_env(&env, ft_substr(str, 0, j), ft_substr(str, i, (ft_strlen(str) - i)));
+		update_env(&env, substr, ft_substr(str, i, (ft_strlen(str) - i)));
 }
 
 void	export_command(char **strs, t_env *env)
