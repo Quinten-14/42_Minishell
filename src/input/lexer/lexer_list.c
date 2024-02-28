@@ -37,7 +37,7 @@ t_input	*destroy_node(t_input *input)
 
 void	free_input(t_input *input)
 {
-	while(input->next != NULL)
+	while (input->next != NULL)
 		input = input->next;
 	while (input)
 		input = destroy_node(input);
@@ -50,9 +50,9 @@ void	add_node_input(t_input **head, char *str, int i, char **arr)
 	t_input	*current;
 
 	new_node = new_list(str, i, arr);
-    if (!new_node)
+	if (!new_node)
 	{
-        return ;
+		return ;
 	}
 	if (*head == NULL)
 	{

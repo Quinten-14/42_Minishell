@@ -1,26 +1,26 @@
 #include "../../include/minishell.h"
 
-int array_len(void **array)
+int	array_len(void **array)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (array[i])
-        i++;
-    return (i);
+	i = 0;
+	while (array[i])
+		i++;
+	return (i);
 }
 
-void    free_array(char **array)
+void	free_array(char **array)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (array[i])
-    {
-        free(array[i]);
-        array[i] = NULL;
-        i++;
-    }
-    free(array);
-    array = NULL;
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		array[i] = NULL;
+		i++;
+	}
+	free(array);
+	array = NULL;
 }

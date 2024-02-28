@@ -3,12 +3,12 @@
 
 void	free_input(t_input *input);
 
-void	free_AST(t_ASTNode *head)
+void	free_ast(t_ASTNode *head)
 {
 	if (!head)
 		return ;
-	free_AST(head->left);
-	free_AST(head->right);
+	free_ast(head->left);
+	free_ast(head->right);
 	free(head->content);
 	free(head->type);
 	free(head);
@@ -98,4 +98,3 @@ t_ASTNode	*parse_to_ast(t_input *input)
 		return (NULL);
 	return (head);
 }
-

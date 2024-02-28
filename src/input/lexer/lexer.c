@@ -64,14 +64,14 @@ t_input	*lexer(char *prompt)
 	splitted = convert_input(prompt);
 	if (!splitted)
 		return (NULL);
-    if (!splitted[0])
+	if (!splitted[0])
 	{
-        return (NULL);
+		return (NULL);
 	}
 	input_list = new_list(splitted[0], 0, splitted);
-    if (!input_list)
+	if (!input_list)
 	{
-        return (NULL);
+		return (NULL);
 	}
 	i = 1;
 	while (splitted[i])

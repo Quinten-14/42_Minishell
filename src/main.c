@@ -9,10 +9,10 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
-    data.env_list = *init_env_list(envp);
+	data.env_list = *init_env_list(envp);
 	while (data.exit == false)
 	{
 		input(&data);
 	}
-    return (data.ret);
+	return (data.ret);
 }
