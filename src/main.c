@@ -15,5 +15,9 @@ int	main(int ac, char **av, char **envp)
 	{
 		input(&data);
 	}
+	if (data.exit == true)
+	{
+		//free_env_list(&data.env_list);
+	}
 	return (data.ret);
 }

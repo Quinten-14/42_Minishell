@@ -1,6 +1,20 @@
 #include "../../include/libft.h"
 #include "../../include/minishell.h"
 
+void	free_env_list(t_env *head)
+{
+	t_env	*tmp;
+
+	while (head != NULL)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp->var_name);
+		free(tmp->content);
+		free(tmp);
+	}
+}
+
 static t_env	*new_list(char *name, char *value)
 {
 	t_env	*env;
