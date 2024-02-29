@@ -10,6 +10,7 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include "./data.h"
 # include "./functions.h"
 

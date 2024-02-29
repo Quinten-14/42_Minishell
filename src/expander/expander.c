@@ -47,7 +47,7 @@ char	*handle_dollar(char *result, t_ASTNode *node, t_env *env, int *i)
 {
 	if (node->content[*i + 1] == '$')
 	{
-		result = join_and_free_old(result, "2034");
+		result = join_and_free_old(result, getProcessID());
 		(*i)++;
 	}
 	else if (node->content[*i + 1] == '?')
@@ -72,7 +72,7 @@ void	expander_checker(t_ASTNode *node, t_env *env)
     {
         if (node->content[i] == '$')
             result = handle_dollar(result, node, env, &i);
-        else if (node->content[i] != '\"') // Skip double quotes
+        else if (node->content[i] != '\"')
         {
             temp[0] = node->content[i];
             temp[1] = '\0';
