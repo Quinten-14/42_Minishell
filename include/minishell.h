@@ -10,13 +10,14 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include "./data.h"
 # include "./functions.h"
 
 /* Defines Section */
 
 # ifndef DEBUG_MODE
-#  define DEBUG_MODE false
+#  define DEBUG_MODE true
 # endif
 
 #endif

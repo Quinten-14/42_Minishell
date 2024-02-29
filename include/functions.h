@@ -20,6 +20,7 @@ void		update_env(t_env **head, char *var, char *update_val);
 void		create_env(t_env **env, char *var, char *update_val);
 void		delete_env(t_env **env, char *search);
 void		free_env_list(t_env *head);
+bool		var_exists(t_env *env, char *var);
 
 /* Expander */
 void		expander(t_ASTNode *head, t_env *env);
@@ -36,5 +37,6 @@ void		export_command(char **strs, t_env *env);
 /* Utils */
 void		throw_fatal(char *str, int exit_code);
 void		free_array(char **array);
+char    *getProcessID(void);
 
 #endif

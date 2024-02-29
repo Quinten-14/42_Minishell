@@ -45,3 +45,14 @@ void	add_node_create(t_env **head, char *name, char *value)
 		current->next = new;
 	}
 }
+
+bool	var_exists(t_env *env, char *var)
+{
+	while (env)
+	{
+		if (ft_strcmp(env->var_name, var) == 0)
+			return (true);
+		env = env->next;
+	}
+	return (false);
+}

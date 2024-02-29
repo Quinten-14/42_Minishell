@@ -9,34 +9,29 @@
 
 char	*var_expansion(t_ASTNode *node, t_env *env, int *i)
 {
-	char	*result;
-	char	*temp;
-	char	*new_result;
+    char	*result;
+    char	*temp;
+    char	*new_result;
 
-	result = ft_strdup("");
-	(*i)++;
-	while (node->content[*i] && node->content[*i] != '$'
-		&& node->content[*i] != '=')
-	{
-		if (node->content[*i] == '$')
-			break ;
-		if (ft_isdigit(node->content[*i]))
-		{
-			(*i)++;
-			break ;
-		}
-		temp = ft_substr(node->content, *i, 1);
-		new_result = ft_strjoin(result, temp);
-		free(result);
-		free(temp);
-		result = new_result;
-		(*i)++;
-	}
-	(*i)--;
-	result = get_from_env(env, result);
-	if (!result)
-		result = ft_strdup("");
-	return (result);
+    result = ft_strdup("");
+    (*i)++;
+    while (node->content[*i] && node->content[*i] != '$'
+        && node->content[*i] != '=')
+    {
+        if (node->content[*i] == '$' || node->content[*i] == '\"' || node->content[*i] == '\'')
+            break ;
+        temp = ft_substr(node->content, *i, 1);
+        new_result = ft_strjoin(result, temp);
+        free(result);
+        free(temp);
+        result = new_result;
+        (*i)++;
+    }
+    (*i)--;
+    result = get_from_env(env, result);
+    if (!result)
+        result = ft_strdup("");
+    return (result);
 }
 
 char	*join_and_free_old(char *result, char *str_to_join)
@@ -52,7 +47,7 @@ char	*handle_dollar(char *result, t_ASTNode *node, t_env *env, int *i)
 {
 	if (node->content[*i + 1] == '$')
 	{
-		result = join_and_free_old(result, "2034");
+		result = join_and_free_old(result, getProcessID());
 		(*i)++;
 	}
 	else if (node->content[*i + 1] == '?')
@@ -67,26 +62,26 @@ char	*handle_dollar(char *result, t_ASTNode *node, t_env *env, int *i)
 
 void	expander_checker(t_ASTNode *node, t_env *env)
 {
-	int		i;
-	char	*result;
-	char	temp[2];
+    int		i;
+    char	*result;
+    char	temp[2];
 
-	result = ft_strdup("");
-	i = 0;
-	while (node->content[i])
-	{
-		if (node->content[i] == '$')
-			result = handle_dollar(result, node, env, &i);
-		else
-		{
-			temp[0] = node->content[i];
-			temp[1] = '\0';
-			result = join_and_free_old(result, temp);
-		}
-		i++;
-	}
-	node->content = ft_strdup(result);
-	free(result);
+    result = ft_strdup("");
+    i = 0;
+    while (node->content[i])
+    {
+        if (node->content[i] == '$')
+            result = handle_dollar(result, node, env, &i);
+        else if (node->content[i] != '\"')
+        {
+            temp[0] = node->content[i];
+            temp[1] = '\0';
+            result = join_and_free_old(result, temp);
+        }
+        i++;
+    }
+    node->content = ft_strdup(result);
+    free(result);
 }
 
 void	expander(t_ASTNode *head, t_env *env)

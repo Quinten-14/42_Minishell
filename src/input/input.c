@@ -21,7 +21,7 @@ void	input(t_data *data)
 	if (!head)
 		return ;
 	expander(head, &data->env_list);
-	splitted = ft_split(data->prompt, ' ');
+	splitted = convert_input(data->prompt);
 	if (ft_strcmp(splitted[0], "pwd") == 0)
 		get_pwd();
 	if (ft_strcmp(splitted[0], "env") == 0)
