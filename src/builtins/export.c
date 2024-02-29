@@ -41,28 +41,28 @@ static int	export_syntax(char *str)
 
 static void	handle_export(char *str, t_env *env)
 {
-    size_t	i;
-    size_t	j;
-    char	*substr;
-    char	*new_value;
+	size_t	i;
+	size_t	j;
+	char	*substr;
+	char	*new_value;
 
-    i = 0;
-    while (str[i] && str[i] != '=')
-        i++;
-    j = i;
-    if (str[i] == '=')
-        i++;
-    substr = ft_substr(str, 0, j);
-    if (ft_strlen(str) == j)
-        new_value = NULL;
-    else
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	j = i;
+	if (str[i] == '=')
+		i++;
+	substr = ft_substr(str, 0, j);
+	if (ft_strlen(str) == j)
+		new_value = NULL;
+	else
 		new_value = ft_substr(str, i, (ft_strlen(str) - i));
 	if (var_exists(env, substr) && new_value == NULL)
-		return;
-    if (new_value == NULL && get_from_env(env, substr) != NULL)
-		return;
+		return ;
+	if (new_value == NULL && get_from_env(env, substr) != NULL)
+		return ;
 	printf("exporting %s\n", substr);
-    update_env(&env, substr, new_value);
+	update_env(&env, substr, new_value);
 }
 
 void	export_command(char **strs, t_env *env)

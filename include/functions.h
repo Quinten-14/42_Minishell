@@ -37,6 +37,6 @@ void		export_command(char **strs, t_env *env);
 /* Utils */
 void		throw_fatal(char *str, int exit_code);
 void		free_array(char **array);
-char    *get_process_id(void);
+char		*get_process_id(void);
 
 #endif
