@@ -56,11 +56,11 @@ static void	handle_export(char *str, t_env *env)
     if (ft_strlen(str) == j)
         new_value = NULL;
     else
-        new_value = ft_substr(str, i, (ft_strlen(str) - i));
+		new_value = ft_substr(str, i, (ft_strlen(str) - i));
 	if (var_exists(env, substr) && new_value == NULL)
 		return;
     if (new_value == NULL && get_from_env(env, substr) != NULL)
-        return;
+		return;
 	printf("exporting %s\n", substr);
     update_env(&env, substr, new_value);
 }
