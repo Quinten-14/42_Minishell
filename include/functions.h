@@ -4,7 +4,7 @@
 # include "./data.h"
 
 /* Input */
-void		input(t_data *data);
+t_ASTNode		*input(t_data *data);
 char		**convert_input(char *s);
 t_input		*lexer(char *prompt);
 t_ASTNode	*add_ast_node(t_input *input, t_ASTNode *current, int *element);
@@ -33,6 +33,9 @@ void		cd_command(char **strs, t_env *env);
 void		exit_command(t_data *data, char **prompt);
 int			echo_command(char **args);
 void		export_command(char **strs, t_env *env);
+
+/* Executo */
+int			command_executor(t_ASTNode *node, t_data *data);
 
 /* Utils */
 void		throw_fatal(char *str, int exit_code);

@@ -6,6 +6,7 @@
 int	main(int ac, char **av, char **envp)
 {
 	t_data	data;
+	t_ASTNode	*head;
 
 	(void)ac;
 	(void)av;
@@ -13,7 +14,8 @@ int	main(int ac, char **av, char **envp)
 	data.env_list = *init_env_list(envp);
 	while (data.exit == false)
 	{
-		input(&data);
+		head = input(&data);
+		command_executor(head, &data);
 	}
 	if (data.exit == true)
 	{

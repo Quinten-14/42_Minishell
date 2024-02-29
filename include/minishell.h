@@ -17,7 +17,7 @@
 /* Defines Section */
 
 # ifndef DEBUG_MODE
-#  define DEBUG_MODE true
+#  define DEBUG_MODE false
 # endif
 
 #endif
