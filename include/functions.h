@@ -34,7 +34,7 @@ void		exit_command(t_data *data, char **prompt);
 int			echo_command(char **args);
 void		export_command(char **strs, t_env *env);
 
-/* Executo */
+/* Executer */
 int			command_executor(t_ASTNode *node, t_data *data);
 
 /* Utils */
