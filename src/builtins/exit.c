@@ -31,7 +31,7 @@ void	exit_command(t_data *data, char **prompt)
 		numeric = ret_is_num(prompt[1]);
 		if (!numeric)
 		{
-			data->ret = 255;
+			data->ret = 2;
 			ft_putstr_fd("minishell: exit: ", 2);
 			ft_putstr_fd(prompt[1], 2);
 			ft_putendl_fd(": numeric argument required", 2);
