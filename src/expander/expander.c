@@ -48,7 +48,7 @@ char	*handle_dollar(char *result, t_ASTNode *node, t_env *env, int *i)
 {
 	if (node->content[*i + 1] == '$')
 	{
-		result = join_and_free_old(result, getProcessID());
+		result = join_and_free_old(result, get_process_id());
 		(*i)++;
 	}
 	else if (node->content[*i + 1] == '?')
