@@ -19,6 +19,7 @@ char		*get_from_env(t_env *env, char *search);
 void		update_env(t_env **head, char *var, char *update_val);
 void		create_env(t_env **env, char *var, char *update_val);
 void		delete_env(t_env **env, char *search);
+bool	var_exists(t_env *env, char *var);
 
 /* Expander */
 void		expander(t_ASTNode *head, t_env *env);
