@@ -39,4 +39,5 @@ void	input(t_data *data)
 		echo_command(splitted);
 	if (ft_strcmp(splitted[0], "export") == 0)
 		export_command(splitted, &data->env_list);
+	free_ast(head);
 }
