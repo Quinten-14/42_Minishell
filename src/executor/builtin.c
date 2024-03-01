@@ -1,9 +1,9 @@
 #include "../../include/minishell.h"
 #include "../../include/libft.h"
 
-bool    is_builtin(char *command)
+bool	is_builtin(char *command)
 {
-    if (ft_strcmp(command, "echo") == 0)
+	if (ft_strcmp(command, "echo") == 0)
 		return (true);
 	if (ft_strcmp(command, "cd") == 0)
 		return (true);
@@ -18,11 +18,11 @@ bool    is_builtin(char *command)
 	return (false);
 }
 
-int exec_builtin(char *cmd, char **args, t_data *data)
+int	exec_builtin(char *cmd, char **args, t_data *data)
 {
-    int ret;
+	int	ret;
 
-    if (ft_strcmp(cmd, "echo") == 0)
+	if (ft_strcmp(cmd, "echo") == 0)
 		ret = echo_command(args);
 	if (ft_strcmp(cmd, "cd") == 0)
 		cd_command(args, &data->env_list);

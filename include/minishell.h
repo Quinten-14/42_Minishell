@@ -11,6 +11,7 @@
 # include <limits.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <signal.h>
 # include "./data.h"
 # include "./functions.h"
 
@@ -19,5 +20,7 @@
 # ifndef DEBUG_MODE
 #  define DEBUG_MODE false
 # endif
+
+extern t_signal	g_sig;
 
 #endif

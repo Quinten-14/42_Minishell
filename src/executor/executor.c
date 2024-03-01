@@ -8,10 +8,10 @@
 	// on the right side of the node are the redirects.
 	// on the left side of the redirect node is the file to redirect to.
 
-bool    is_builtin(char *command);
-int     exec_builtin(char *cmd, char **args, t_data *data);
-int amount_args(t_ASTNode *head);
-char    **arg_arr(t_ASTNode *node);
+bool	is_builtin(char *command);
+int		exec_builtin(char *cmd, char **args, t_data *data);
+int		amount_args(t_ASTNode *head);
+char	**arg_arr(t_ASTNode *node);
 
 // execute the command
 int	command_executor(t_ASTNode *node, t_data *data)
@@ -19,8 +19,8 @@ int	command_executor(t_ASTNode *node, t_data *data)
 	char	**args;
 
 	args = arg_arr(node);
-    if (is_builtin(node->content))
-        return (exec_builtin(node->content, args, data));
-    else
-        return (1);
+	if (is_builtin(node->content))
+		return (exec_builtin(node->content, args, data));
+	else
+		return (1);
 }

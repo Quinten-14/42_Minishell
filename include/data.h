@@ -45,4 +45,10 @@ typedef struct s_data
 	int		ret;
 }				t_data;
 
+typedef struct s_signal
+{
+	bool	ctrl_c;
+	bool	ctrl_d;
+}				t_signal;
+
 #endif
