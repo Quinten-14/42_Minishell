@@ -20,7 +20,7 @@ void	exit_command(t_data *data, char **prompt)
 	bool	numeric;
 
 	data->exit = true;
-	ft_putstr_fd("exit ", 2);
+	ft_putendl_fd("exit ", 2);
 	if (prompt[1] && prompt[2])
 	{
 		data->ret = 1;

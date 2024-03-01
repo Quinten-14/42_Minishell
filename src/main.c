@@ -10,19 +10,19 @@ int	main(int ac, char **av, char **envp)
 	t_ASTNode	*head;
 
 	signal(SIGINT, handle_c);
-	signal(SIGQUIT, handle_d);
+	//signal(SIGQUIT, handle_d);
 	(void)ac;
 	(void)av;
 	init_signal();
 	data.exit = false;
 	data.env_list = *init_env_list(envp);
-	while (data.exit == false && g_sig.ctrl_d == false)
+	while (data.exit == false)
 	{
 		head = input(&data);
 		if (head)
 			command_executor(head, &data);
 	}
-	if (data.exit == true || g_sig.ctrl_d == true)
+	if (data.exit == true)
 	{
 		//free_env_list(&data.env_list);
 	}
