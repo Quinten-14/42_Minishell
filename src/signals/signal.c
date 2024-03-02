@@ -12,6 +12,13 @@ void	handle_c(int num)
 	rl_redisplay();
 }
 
+void	handle_quit(int num)
+{
+	(void)num;
+	//rl_on_new_line();
+	//rl_redisplay();
+}
+
 t_ASTNode	*handle_d(t_data *data)
 {
 	ft_putendl_fd("exit ", 2);

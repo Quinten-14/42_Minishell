@@ -40,6 +40,7 @@ int			command_executor(t_ASTNode *node, t_data *data);
 /* Signals */
 void		init_signal(void);
 void		handle_c(int num);
+void		handle_quit(int num);
 t_ASTNode	*handle_d(t_data *data);
 
 /* Utils */

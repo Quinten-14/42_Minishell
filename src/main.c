@@ -10,7 +10,7 @@ int	main(int ac, char **av, char **envp)
 	t_ASTNode	*head;
 
 	signal(SIGINT, handle_c);
-	//signal(SIGQUIT, handle_d);
+	signal(SIGQUIT, handle_quit);
 	(void)ac;
 	(void)av;
 	init_signal();
