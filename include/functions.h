@@ -12,7 +12,7 @@ t_input		*destroy_node(t_input *input);
 t_ASTNode	*parse_to_ast(t_input *input);
 t_ASTNode	*delete_ast_node(t_ASTNode *current);
 void		free_ast(t_ASTNode *head);
-void		init_data(t_data *data);
+void		init_data(t_data *data, char **envp);
 
 /* Environment */
 t_env		*init_env_list(char **envp);
@@ -37,6 +37,7 @@ void		export_command(char **strs, t_env *env);
 
 /* Executer */
 int			command_executor(t_ASTNode *node, t_data *data);
+void    run_binary(char *cmd, t_data *data, char **argv);
 
 /* Signals */
 void		init_signal(void);

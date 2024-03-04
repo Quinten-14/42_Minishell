@@ -14,7 +14,7 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 //	init_signal();
-	init_data(&data);
+	init_data(&data, envp);
 	data.env_list = *init_env_list(envp);
 	while (data.exit == false)
 	{

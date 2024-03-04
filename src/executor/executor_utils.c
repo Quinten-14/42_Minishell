@@ -1,5 +1,5 @@
-#include "../../include/minishell.h"
 #include "../../include/libft.h"
+#include "../../include/minishell.h"
 
 int	amount_args(t_ASTNode *head)
 {

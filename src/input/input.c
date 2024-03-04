@@ -1,9 +1,9 @@
 #include "../../include/libft.h"
 #include "../../include/minishell.h"
 
-void	init_data(t_data *data)
+void	init_data(t_data *data, char **envp)
 {
-	data->env = NULL;
+	data->env = envp;
 	data->prompt = NULL;
 	data->exit = false;
 	data->ret = 0;
