@@ -4,8 +4,6 @@
 void	handle_c(int num)
 {
 	(void)num;
-	signal(SIGINT, handle_c);
-	g_sig.ctrl_c = true;
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -19,8 +17,10 @@ t_ASTNode	*handle_d(t_data *data)
 	return (NULL);
 }
 
+/*
 void	init_signal(void)
 {
 	g_sig.ctrl_c = false;
 	g_sig.ctrl_d = false;
 }
+*/

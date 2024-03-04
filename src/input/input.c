@@ -1,6 +1,14 @@
 #include "../../include/libft.h"
 #include "../../include/minishell.h"
 
+void	init_data(t_data *data)
+{
+	data->env = NULL;
+	data->prompt = NULL;
+	data->exit = false;
+	data->ret = 0;
+}
+
 t_ASTNode	*input(t_data *data)
 {
 	t_input		*input;

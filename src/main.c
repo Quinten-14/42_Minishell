@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-t_signal	g_sig;
+//t_signal	g_sig;
 // Main Logic Function
 
 // Main Function
@@ -13,8 +13,8 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGQUIT, SIG_IGN);
 	(void)ac;
 	(void)av;
-	init_signal();
-	data.exit = false;
+//	init_signal();
+	init_data(&data);
 	data.env_list = *init_env_list(envp);
 	while (data.exit == false)
 	{
