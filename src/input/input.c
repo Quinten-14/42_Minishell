@@ -29,6 +29,6 @@ t_ASTNode	*input(t_data *data)
 	head = parse_to_ast(input);
 	if (!head)
 		return (NULL);
-	expander(head, &data->env_list);
+	expander(head, data);
 	return (head);
 }

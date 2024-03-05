@@ -44,7 +44,7 @@ char	*join_and_free_old(char *result, char *str_to_join)
 	return (new_result);
 }
 
-char	*handle_dollar(char *result, t_ASTNode *node, t_env *env, int *i)
+char	*handle_dollar(char *result, t_ASTNode *node, t_data *data, int *i)
 {
 	if (node->content[*i + 1] == '$')
 	{
@@ -53,15 +53,15 @@ char	*handle_dollar(char *result, t_ASTNode *node, t_env *env, int *i)
 	}
 	else if (node->content[*i + 1] == '?')
 	{
-		result = join_and_free_old(result, "12");
+		result = join_and_free_old(result, ft_itoa(data->ret));
 		(*i)++;
 	}
 	else
-		result = join_and_free_old(result, var_expansion(node, env, i));
+		result = join_and_free_old(result, var_expansion(node, &data->env_list, i));
 	return (result);
 }
 
-void	expander_checker(t_ASTNode *node, t_env *env)
+void	expander_checker(t_ASTNode *node, t_data *data)
 {
 	int		i;
 	char	*result;
@@ -72,7 +72,7 @@ void	expander_checker(t_ASTNode *node, t_env *env)
 	while (node->content[i])
 	{
 		if (node->content[i] == '$')
-			result = handle_dollar(result, node, env, &i);
+			result = handle_dollar(result, node, data, &i);
 		else if (node->content[i] != '\"')
 		{
 			temp[0] = node->content[i];
@@ -85,16 +85,16 @@ void	expander_checker(t_ASTNode *node, t_env *env)
 	free(result);
 }
 
-void	expander(t_ASTNode *head, t_env *env)
+void	expander(t_ASTNode *head, t_data *data)
 {
 	if (!head)
 		return ;
 	if (ft_strcmp(head->type, "Var-Expansion") == 0)
 	{
-		expander_checker(head, env);
+		expander_checker(head, data);
 		if (DEBUG_MODE)
 			printf("After Expander: %s\n", head->content);
 	}
-	expander(head->right, env);
-	expander(head->left, env);
+	expander(head->right, data);
+	expander(head->left, data);
 }

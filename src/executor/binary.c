@@ -1,5 +1,6 @@
 #include "../../include/libft.h"
 #include "../../include/minishell.h"
+#include <sys/wait.h>
 #include <unistd.h>
 
 // if i make a hero doc i should make it so it is in a child process.
@@ -60,5 +61,9 @@ void	run_binary(char *cmd, t_data *data, char **argv)
 		}
 	}
 	else
+    {
 		waitpid(pid, &status, 0);
+        if (WIFEXITED(status))
+            data->ret = WEXITSTATUS(status);
+    }
 }

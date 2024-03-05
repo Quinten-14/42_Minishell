@@ -24,7 +24,7 @@ void		free_env_list(t_env *head);
 bool		var_exists(t_env *env, char *var);
 
 /* Expander */
-void		expander(t_ASTNode *head, t_env *env);
+void		expander(t_ASTNode *head, t_data *data);
 
 /* Builtins */
 int			env_command(t_env *env);
