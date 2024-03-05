@@ -33,10 +33,7 @@ char	*get_path(char *cmd, t_env *env)
 		free_array(allpath);
 	}
 	if (!exec_path)
-	{
-		printf("Command not found\n");
 		return (NULL);
-	}
 	return (exec_path);
 }
 
