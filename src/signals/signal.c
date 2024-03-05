@@ -17,10 +17,3 @@ t_ASTNode	*handle_d(t_data *data)
 	return (NULL);
 }
 
-/*
-void	init_signal(void)
-{
-	g_sig.ctrl_c = false;
-	g_sig.ctrl_d = false;
-}
-*/
