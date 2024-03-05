@@ -47,8 +47,7 @@ typedef struct s_data
 
 typedef struct s_signal
 {
-	bool	ctrl_c;
-	bool	ctrl_d;
+	bool	in_child;
 }				t_signal;
 
 #endif
