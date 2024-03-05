@@ -19,11 +19,11 @@ int	command_executor(t_ASTNode *node, t_data *data)
 	char	**args;
 
 	args = arg_arr(node);
-    if (is_builtin(node->content))
+	if (is_builtin(node->content))
 		return (exec_builtin(node->content, args, data));
-    else if (get_path(node->content, &data->env_list) != NULL)
+	else if (get_path(node->content, &data->env_list) != NULL)
 		run_binary(node->content, data, args);
-    else
-        printf("Command not found\n");
+	else
+		printf("Command not found\n");
 	return (1);
 }

@@ -30,6 +30,5 @@ t_ASTNode	*input(t_data *data)
 	if (!head)
 		return (ft_error("bash: syntax error"));
 	expander(head, data);
-		return (NULL);
 	return (head);
 }
