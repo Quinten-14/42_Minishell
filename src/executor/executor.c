@@ -12,16 +12,18 @@ bool	is_builtin(char *command);
 int		exec_builtin(char *cmd, char **args, t_data *data);
 int		amount_args(t_ASTNode *head);
 char	**arg_arr(t_ASTNode *node);
-
+char	*get_path(char *cmd, t_env *env);
 // execute the command
 int	command_executor(t_ASTNode *node, t_data *data)
 {
 	char	**args;
 
 	args = arg_arr(node);
-	if (is_builtin(node->content))
+    if (is_builtin(node->content))
 		return (exec_builtin(node->content, args, data));
-	else
+    else if (get_path(node->content, &data->env_list) != NULL)
 		run_binary(node->content, data, args);
+    else
+        printf("Command not found\n");
 	return (1);
 }
