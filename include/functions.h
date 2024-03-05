@@ -37,7 +37,7 @@ void		export_command(char **strs, t_env *env);
 
 /* Executer */
 int			command_executor(t_ASTNode *node, t_data *data);
-void    run_binary(char *cmd, t_data *data, char **argv);
+void		run_binary(char *cmd, t_data *data, char **argv);
 
 /* Signals */
 void		init_signal(void);
@@ -49,5 +49,6 @@ t_ASTNode	*handle_d(t_data *data);
 void		throw_fatal(char *str, int exit_code);
 void		free_array(char **array);
 char		*get_process_id(void);
+t_ASTNode	*ft_error(char *str);
 
 #endif

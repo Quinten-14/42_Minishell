@@ -16,4 +16,3 @@ t_ASTNode	*handle_d(t_data *data)
 	data->exit = true;
 	return (NULL);
 }
-

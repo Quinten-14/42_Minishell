@@ -23,12 +23,12 @@ t_ASTNode	*input(t_data *data)
 	}
 	input = lexer(data->prompt);
 	if (!input)
-		return (NULL);
+		return (ft_error("bash: syntax error"));
 	add_history(data->prompt);
     // use the input for the parser to then make a AST
 	head = parse_to_ast(input);
 	if (!head)
-		return (NULL);
+		return (ft_error("bash: syntax error"));
 	expander(head, &data->env_list);
 	return (head);
 }

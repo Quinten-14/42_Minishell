@@ -6,12 +6,18 @@ char	*check_types(char *str, int i, char **arr);
 t_input	*new_list(char *str, int i, char **arr)
 {
 	t_input	*new;
-
+	
 	new = malloc(sizeof(t_input));
 	if (!new)
 		return (NULL);
 	new->content = ft_strdup(str);
 	new->type = check_types(str, i, arr);
+	if (str[0] == 34 && str[ft_strlen(str) - 1] == 34)
+		new->quote = 2;
+	else if (str[0] == 39 && str[ft_strlen(str) - 1] == 39)
+		new->quote = 1;
+	else
+		new->quote = 0;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
@@ -77,7 +83,7 @@ void	print_list(t_input *head)
 	current = head;
 	while (current != NULL)
 	{
-		printf("Content: %s, Type: %s\n", current->content, current->type);
+		printf("Content: %s, Type: %s, quote: %d\n", current->content, current->type, current->quote);
 		current = current->next;
 	}
 }
