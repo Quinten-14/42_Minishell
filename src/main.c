@@ -32,7 +32,10 @@ int	main(int ac, char **av, char **envp)
 	{
 		head = input(&data);
 		if (head)
+		{
 			command_executor(head, &data);
+			free_ast(head);
+		}
 	}
 	if (data.exit == true)
 	{

@@ -78,6 +78,5 @@ t_input	*lexer(char *prompt)
 	if (DEBUG_MODE)
 		print_list(input_list);
 	free_array(splitted);
-	//return function that checks syntax
 	return (check_syntax(input_list));
 }
