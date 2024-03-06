@@ -13,6 +13,7 @@ t_ASTNode	*parse_to_ast(t_input *input);
 t_ASTNode	*delete_ast_node(t_ASTNode *current);
 void		free_ast(t_ASTNode *head);
 void		init_data(t_data *data, char **envp);
+t_input		*check_syntax(t_input *input_list);
 
 /* Environment */
 t_env		*init_env_list(char **envp);
