@@ -7,11 +7,11 @@ static void	check_quotes(char c, bool *sq, bool *dq)
 	{
 		if (c == 39 && *sq == true)
 			*sq = false;
-		else if (c == 39 && *sq == false)
+		else if (c == 39 && *sq == false && *dq == false)
 			*sq = true;
 		else if (c == 34 && *dq == true)
 			*dq = false;
-		else if (c == 34 && *dq == false)
+		else if (c == 34 && *dq == false && *sq == false)
 			*dq = true;
 	}
 }
