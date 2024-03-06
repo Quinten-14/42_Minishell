@@ -42,7 +42,7 @@ char	*check_types(char *str, int i, char **arr)
 	}
 	else if (i > 0 && (check_redir(arr[i - 1]) == true))
 		type = "file";
-	else if (ft_strchr(str, '$') != 0 && str[0] != '\'')
+	else if (ft_strchr(str, '$') != 0 && str[0] != '\'' && ft_strlen(str) != 1)
 		type = "Var-Expansion";
 	else if (i == 0 || !command_inline)
 	{

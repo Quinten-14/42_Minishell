@@ -44,7 +44,7 @@ t_ASTNode	*add_left_node(t_ASTNode *parent, t_input *input, int *element)
 	if (input->quote == 1)
 		new_node->content = ft_strtrim(input->content, "'");
 	else if (input->quote == 2)
-		new_node->content = ft_strtrim(input->content, (char*)"\"");
+		new_node->content = ft_strtrim(input->content, "\"");
 	else
 		new_node->content = ft_strdup(input->content);
 	new_node->type = ft_strdup(input->type);

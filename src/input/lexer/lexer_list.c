@@ -6,7 +6,7 @@ char	*check_types(char *str, int i, char **arr);
 t_input	*new_list(char *str, int i, char **arr)
 {
 	t_input	*new;
-	
+
 	new = malloc(sizeof(t_input));
 	if (!new)
 		return (NULL);
@@ -83,7 +83,7 @@ void	print_list(t_input *head)
 	current = head;
 	while (current != NULL)
 	{
-		printf("Content: %s, Type: %s, quote: %d\n", current->content, current->type, current->quote);
+		printf("Content: %s, Type: %s\n", current->content, current->type);
 		current = current->next;
 	}
 }

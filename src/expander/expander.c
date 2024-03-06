@@ -35,7 +35,7 @@ char	*var_expansion(t_ASTNode *node, t_env *env, int *i)
 	return (result);
 }
 
-char	*join_and_free_old(char *result, char *str_to_join)
+char	*join_free_old(char *result, char *str_to_join)
 {
 	char	*new_result;
 
@@ -48,16 +48,18 @@ char	*handle_dollar(char *result, t_ASTNode *node, t_data *data, int *i)
 {
 	if (node->content[*i + 1] == '$')
 	{
-		result = join_and_free_old(result, get_process_id());
+		result = join_free_old(result, get_process_id());
 		(*i)++;
 	}
 	else if (node->content[*i + 1] == '?')
 	{
-		result = join_and_free_old(result, ft_itoa(data->ret));
+		result = join_free_old(result, ft_itoa(data->ret));
 		(*i)++;
 	}
+	else if (!node->content[*i + 1])
+		result = join_free_old(result, "$");
 	else
-		result = join_and_free_old(result, var_expansion(node, &data->env_list, i));
+		result = join_free_old(result, var_expansion(node, &data->env_list, i));
 	return (result);
 }
 
@@ -77,7 +79,7 @@ void	expander_checker(t_ASTNode *node, t_data *data)
 		{
 			temp[0] = node->content[i];
 			temp[1] = '\0';
-			result = join_and_free_old(result, temp);
+			result = join_free_old(result, temp);
 		}
 		i++;
 	}

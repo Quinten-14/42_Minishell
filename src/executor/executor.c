@@ -14,6 +14,7 @@ int		amount_args(t_ASTNode *head);
 char	**arg_arr(t_ASTNode *node);
 char	*get_path(char *cmd, t_env *env);
 // execute the command
+
 int	command_executor(t_ASTNode *node, t_data *data)
 {
 	char	**args;

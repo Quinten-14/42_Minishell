@@ -61,9 +61,9 @@ void	run_binary(char *cmd, t_data *data, char **argv)
 		}
 	}
 	else
-    {
+	{
 		waitpid(pid, &status, 0);
-        if (WIFEXITED(status))
-            data->ret = WEXITSTATUS(status);
-    }
+		if (WIFEXITED(status))
+			data->ret = WEXITSTATUS(status);
+	}
 }
