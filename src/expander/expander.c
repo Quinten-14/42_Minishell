@@ -59,7 +59,7 @@ char	*handle_dollar(char *result, t_ASTNode *node, t_data *data, int *i)
 	else if (!node->content[*i + 1])
 		result = join_free_old(result, "$");
 	else
-		result = join_free_old(result, var_expansion(node, &data->env_list, i));
+		result = join_free_old(result, var_expansion(node, data->env_list, i));
 	return (result);
 }
 

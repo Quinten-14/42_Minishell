@@ -52,7 +52,7 @@ void	run_binary(char *cmd, t_data *data, char **argv)
 	}
 	if (pid == 0)
 	{
-		path = get_path(cmd, &data->env_list);
+		path = get_path(cmd, data->env_list);
 		if (path)
 		{
 			execve(path, argv, data->env);

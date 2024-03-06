@@ -40,7 +40,7 @@ typedef struct s_env
 typedef struct s_data
 {
 	char	**env;
-	t_env	env_list;
+	t_env	*env_list;
 	char	*prompt;
 	bool	exit;
 	int		ret;

@@ -27,7 +27,7 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	init_data(&data, envp);
-	data.env_list = *init_env_list(envp);
+	data.env_list = init_env_list(envp);
 	while (data.exit == false)
 	{
 		head = input(&data);
@@ -39,7 +39,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	if (data.exit == true)
 	{
-		free_env_list(&data.env_list);
+		free_env_list(data.env_list);
 	}
 	return (data.ret);
 }
