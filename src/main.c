@@ -39,7 +39,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	if (data.exit == true)
 	{
-		//free_env_list(&data.env_list);
+		free_env_list(&data.env_list);
 	}
 	return (data.ret);
 }

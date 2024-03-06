@@ -17,7 +17,7 @@ t_input	*check_syntax(t_input *input_list)
 	t_input	*current;
 
 	current = input_list;
-	while(current && current->next)
+	while (current && current->next)
 	{
 		if (check_type(current->type) && check_type(current->next->type))
 		{

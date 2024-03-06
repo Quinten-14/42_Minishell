@@ -10,10 +10,11 @@ static t_env	*new_list(char *content)
 	env = malloc(sizeof(t_env));
 	if (!env)
 		return (NULL);
-	env->content = vars[1];
-	env->var_name = vars[0];
+	env->content = ft_strdup(vars[1]);
+	env->var_name = ft_strdup(vars[0]);
 	env->next = NULL;
 	env->exported = true;
+	free_array(vars);
 	return (env);
 }
 
@@ -71,7 +72,7 @@ t_env	*init_env_list(char **envp)
 	int		i;
 
 	environment = new_list(envp[0]);
-	i = 0;
+	i = 1;
 	while (envp[i])
 	{
 		if (!(ft_strncmp(envp[i], "OLDPWD", 6) == 0))

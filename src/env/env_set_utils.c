@@ -5,6 +5,11 @@ void	free_env_list(t_env *head)
 {
 	t_env	*tmp;
 
+	if (!head)
+		return ;
+	free(head->var_name);
+	free(head->content);
+	head = head->next;
 	while (head != NULL)
 	{
 		tmp = head;
