@@ -41,6 +41,12 @@ void		export_command(char **strs, t_env *env);
 int			command_executor(t_ASTNode *node, t_data *data);
 void		run_binary(char *cmd, t_data *data, char **argv);
 
+/* File Descriptors */
+void    ft_close(int fd);
+void    reset_fd(t_data *data);
+void    close_fds(t_data *data);
+void    reset_fds(t_data *data);
+
 /* Signals */
 void		init_signal(void);
 void		handle_c(int num);

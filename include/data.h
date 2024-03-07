@@ -1,6 +1,12 @@
 #ifndef DATA_H
 # define DATA_H
 
+/* Define Section */
+
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
 /* Enum Section */
 
 typedef enum e_ret_status
@@ -44,6 +50,17 @@ typedef struct s_data
 	char	*prompt;
 	bool	exit;
 	int		ret;
+    int input;
+    int output;
+    int pipe_in;
+    int pipe_out;
+    int fd_out;
+    int fd_in;
+    int pid;
+    bool    parent;
+    bool    no_exec;
+    bool    last;
+    bool    stopped;
 }				t_data;
 
 typedef struct s_signal
