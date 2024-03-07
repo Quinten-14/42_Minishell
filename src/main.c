@@ -11,19 +11,7 @@ int	main(int ac, char **av, char **envp)
 
 	g_sig.in_child = false;
 	signal(SIGINT, handle_c);
-	signal(SIGQUIT, handle_quit);
-	/*
-	if (g_sig.in_child == true)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-	}
-	else
-	{
-		signal(SIGINT, handle_c);
-		signal(SIGQUIT, SIG_IGN);
-	}
-	*/
+	signal(SIGQUIT, SIG_IGN);
 	(void)ac;
 	(void)av;
 	init_data(&data, envp);

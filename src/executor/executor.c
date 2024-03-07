@@ -34,6 +34,6 @@ int	command_executor(t_ASTNode *node, t_data *data)
 		printf("Command not found\n");
 	if (path)
 		free(path);
-	//free_array(args);
+	free(args);
 	return (1);
 }
