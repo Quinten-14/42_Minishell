@@ -18,13 +18,22 @@ char	*get_path(char *cmd, t_env *env);
 int	command_executor(t_ASTNode *node, t_data *data)
 {
 	char	**args;
+	char	*path;
 
 	args = arg_arr(node);
+	path = get_path(node->content, data->env_list);
 	if (is_builtin(node->content))
+	{
+		if (path)
+			free(path);
 		return (exec_builtin(node->content, args, data));
-	else if (get_path(node->content, data->env_list) != NULL)
+	}
+	else if (path != NULL)
 		run_binary(node->content, data, args);
 	else
 		printf("Command not found\n");
+	if (path)
+		free(path);
+	//free_array(args);
 	return (1);
 }

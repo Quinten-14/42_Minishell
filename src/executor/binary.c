@@ -19,6 +19,7 @@ char	*get_path(char *cmd, t_env *env)
 	if (path)
 	{
 		allpath = ft_split(path, ':');
+		free(path);
 		for (int i = 0; allpath[i]; i++)
 		{
 			path_part = ft_strjoin(allpath[i], "/");

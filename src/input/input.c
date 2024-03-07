@@ -24,10 +24,10 @@ t_ASTNode	*input(t_data *data)
 	add_history(data->prompt);
 	input = lexer(data->prompt);
 	if (!input)
-		return (ft_error("bash: syntax error"));
+		return (ft_error("minishell: syntax error"));
 	head = parse_to_ast(input);
 	if (!head)
-		return (ft_error("bash: syntax error"));
+		return (ft_error("minishell: syntax error"));
 	expander(head, data);
 	return (head);
 }
