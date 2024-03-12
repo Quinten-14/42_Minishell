@@ -15,16 +15,41 @@ char	**arg_arr(t_ASTNode *node);
 char	*get_path(char *cmd, t_env *env);
 // execute the command
 
-int	command_executor(t_ASTNode *node, t_data *data)
+bool    has_pi(t_ASTNode *node)
 {
-	char	**args;
+    t_ASTNode *tmp;
 
-	args = arg_arr(node);
-	if (is_builtin(node->content))
-		return (exec_builtin(node->content, args, data));
-	else if (get_path(node->content, &data->env_list) != NULL)
-		run_binary(node->content, data, args);
-	else
-		printf("Command not found\n");
-	return (1);
+    tmp = node;
+    while (tmp)
+    {
+        if (ft_strcmp(tmp->content, "|") == 0)
+            return (true);
+        tmp = tmp->right;
+    }
+    return (false);
+}
+
+void    command_executor(t_ASTNode *node, t_data *data)
+{
+    char    **args;
+
+    args = arg_arr(node);
+    data->cont = true; // for now
+    if (data->cont == false)
+        return ;
+    if (args && ft_strcmp(node->content, "exit") == 0 && has_pi(node) == false)
+        exit_command(data, args);
+    else if (args && is_builtin(node->content))
+        data->ret = exec_builtin(node->content, args, data);
+    else if (args)
+    {
+        printf("is binary\n");
+        data->ret = run_binary(node->content, data, args);
+    }
+    // free args
+    ft_close(data->pipe_in);
+    ft_close(data->pipe_out);
+    data->pipe_in = -1;
+    data->pipe_out = -1;
+    data->cont = false;
 }

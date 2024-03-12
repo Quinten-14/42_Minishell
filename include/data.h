@@ -9,6 +9,10 @@ typedef enum e_ret_status
 	SUCCESS,
 }				t_ret_status;
 
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
 /* Struct Section */
 
 typedef struct s_input_list
@@ -44,6 +48,14 @@ typedef struct s_data
 	char	*prompt;
 	bool	exit;
 	int		ret;
+    int pipe_in;
+    int pipe_out;
+    int input;
+    int output;
+    int fd_input;
+    int fd_output;
+    int pid;
+    bool    cont;
 }				t_data;
 
 typedef struct s_signal

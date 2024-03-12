@@ -36,8 +36,14 @@ int			echo_command(char **args);
 void		export_command(char **strs, t_env *env);
 
 /* Executer */
-int			command_executor(t_ASTNode *node, t_data *data);
-void		run_binary(char *cmd, t_data *data, char **argv);
+void command_executor(t_ASTNode *node, t_data *data);
+int run_binary(char *cmd, t_data *data, char **argv);
+
+/* Redir Utils */
+void    ft_close(int fd);
+void    back_to_std(t_data *data);
+void    close_fds(t_data *data);
+void    reset_fds(t_data *data);
 
 /* Signals */
 void		init_signal(void);

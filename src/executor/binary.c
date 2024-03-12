@@ -38,32 +38,53 @@ char	*get_path(char *cmd, t_env *env)
 	return (exec_path);
 }
 
-void	run_binary(char *cmd, t_data *data, char **argv)
+int run_binary(char *cmd, t_data *data, char **argv)
 {
-	pid_t	pid;
-	int		status;
-	char	*path;
+    pid_t pid;
+    int status;
+    char *path;
 
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("Fork failed");
-		return ;
-	}
-	if (pid == 0)
-	{
-		path = get_path(cmd, &data->env_list);
-		if (path)
-		{
-			execve(path, argv, data->env);
-			perror("Error executing binary");
-			exit(EXIT_FAILURE);
-		}
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			data->ret = WEXITSTATUS(status);
-	}
+    pid = fork();
+    if (pid == -1)
+    {
+        perror("Fork failed");
+        return EXIT_FAILURE;
+    }
+    if (pid == 0)
+    {
+        // Check if the command contains a '/' (indicating a path)
+        if (ft_strchr(cmd, '/') != NULL)
+        {
+            // Execute the command directly (assuming it's a path to a precompiled binary)
+            execve(cmd, argv, data->env);
+        }
+        else
+        {
+            // If it's not a path, search for the executable in the PATH environment variable
+            path = get_path(cmd, &data->env_list);
+            if (path)
+            {
+                execve(path, argv, data->env);
+            }
+        }
+
+        // If execve fails, print an error and exit the child process
+        perror("Error executing binary");
+        exit(EXIT_FAILURE);
+    }
+    else
+    {
+        // Close the write end of any open pipes in the parent
+        close(data->pipe_in);
+        close(data->pipe_out);
+
+        // Wait for the child process to exit
+        waitpid(pid, &status, 0);
+
+        // Check if the child process exited normally
+        if (WIFEXITED(status))
+            return WEXITSTATUS(status);
+        else
+            return EXIT_FAILURE; // Or any appropriate error code
+    }
 }
