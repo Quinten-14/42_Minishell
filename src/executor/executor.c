@@ -39,20 +39,17 @@ void    execute_pipe(t_ASTNode *node, t_data *data)
 
     saved_stdout = dup(STDOUT);
     saved_stdin = dup(STDIN);
-
     if (pipe(pipefd) == -1)
     {
         perror("pipe");
         return;
     }
-
     pid = fork();
     if (pid == -1)
     {
         perror("fork");
         return;
     }
-
     if (pid == 0)
     {
         dup2(pipefd[1], STDOUT);
@@ -67,7 +64,6 @@ void    execute_pipe(t_ASTNode *node, t_data *data)
         command_executor(node->right, data);
         waitpid(pid, &status, 0); // Wait for the specific child process to finish
     }
-
     dup2(saved_stdout, STDOUT);
     close(saved_stdout);
     dup2(saved_stdin, STDIN);
@@ -88,9 +84,6 @@ void    command_executor(t_ASTNode *node, t_data *data)
     if (node->right && ft_strcmp(node->right->type, "less") == 0)
         input_redir(data, node->right);
     args = arg_arr(node);
-    data->cont = true; // for now
-    if (data->cont == false)
-        return ;
     if (args && ft_strcmp(node->content, "exit") == 0 && has_pi(node) == false)
         exit_command(data, args);
     else if (args && is_builtin(node->content))
@@ -102,7 +95,6 @@ void    command_executor(t_ASTNode *node, t_data *data)
     ft_close(data->pipe_out);
     data->pipe_in = -1;
     data->pipe_out = -1;
-    data->cont = false;
 
     dup2(saved_stdout, STDOUT);
     close(saved_stdout);
