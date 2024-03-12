@@ -40,6 +40,11 @@ void		export_command(char **strs, t_env *env);
 /* Executer */
 void command_executor(t_ASTNode *node, t_data *data);
 int run_binary(char *cmd, t_data *data, char **argv);
+void    execute_pipe(t_ASTNode *node, t_data *data);
+
+/* Redirections */
+void    redir(t_data *data, t_ASTNode *node);
+void    input_redir(t_data *data, t_ASTNode *node);
 
 /* Redir Utils */
 void    ft_close(int fd);

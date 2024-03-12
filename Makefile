@@ -21,18 +21,14 @@ CYAN = \033[0;96m
 WHITE = \033[0;97m
 
 SOURCES = main.c input/input.c input/lexer/lexer.c input/lexer/split_config.c \
-		  input/lexer/split_input.c input/lexer/split_utils.c \
+		  input/lexer/split_input.c input/lexer/split_utils.c input/lexer/syntax.c\
 		  input/lexer/lexer_list.c env/env.c builtins/env.c env/env_get_set.c \
 		  utils/errors.c builtins/pwd.c builtins/unset.c builtins/cd.c \
 		  env/env_set_utils.c builtins/exit.c builtins/echo.c builtins/export.c\
 		  input/parser/ast.c input/parser/ast_utils.c utils/arrays.c \
 		  expander/expander.c utils/pid.c executor/executor.c executor/builtin.c\
-<<<<<<< HEAD
-		  signals/signal.c executor/executor_utils.c executor/binary.c utils/redir_utils.c
-=======
-		  signals/signal.c executor/executor_utils.c executor/binary.c input/lexer/syntax.c \
-		  utils/file_descriptor.c
->>>>>>> refs/remotes/origin/master
+		  signals/signal.c executor/executor_utils.c executor/binary.c utils/redir_utils.c\
+		  executor/redirections.c
 
 SRCS = $(addprefix $(SRCS_DIR)/,$(SOURCES))
 OBJS = $(addprefix $(OBJS_DIR)/,$(SOURCES:.c=.o))

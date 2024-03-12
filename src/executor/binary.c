@@ -45,7 +45,6 @@ int run_binary(char *cmd, t_data *data, char **argv)
     int status;
     char *path;
 
-<<<<<<< HEAD
     pid = fork();
     if (pid == -1)
     {
@@ -63,7 +62,7 @@ int run_binary(char *cmd, t_data *data, char **argv)
         else
         {
             // If it's not a path, search for the executable in the PATH environment variable
-            path = get_path(cmd, &data->env_list);
+            path = get_path(cmd, data->env_list);
             if (path)
             {
                 execve(path, argv, data->env);
@@ -89,28 +88,4 @@ int run_binary(char *cmd, t_data *data, char **argv)
         else
             return EXIT_FAILURE; // Or any appropriate error code
     }
-=======
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("Fork failed");
-		return ;
-	}
-	if (pid == 0)
-	{
-		path = get_path(cmd, data->env_list);
-		if (path)
-		{
-			execve(path, argv, data->env);
-			perror("Error executing binary");
-			exit(EXIT_FAILURE);
-		}
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			data->ret = WEXITSTATUS(status);
-	}
->>>>>>> refs/remotes/origin/master
 }

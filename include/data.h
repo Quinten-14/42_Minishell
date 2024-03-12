@@ -54,7 +54,6 @@ typedef struct s_data
 	char	*prompt;
 	bool	exit;
 	int		ret;
-<<<<<<< HEAD
     int pipe_in;
     int pipe_out;
     int input;
@@ -63,19 +62,7 @@ typedef struct s_data
     int fd_output;
     int pid;
     bool    cont;
-=======
-    int input;
-    int output;
-    int pipe_in;
-    int pipe_out;
-    int fd_out;
-    int fd_in;
-    int pid;
-    bool    parent;
-    bool    no_exec;
-    bool    last;
-    bool    stopped;
->>>>>>> refs/remotes/origin/master
+    bool    abort_exec;
 }				t_data;
 
 typedef struct s_signal

@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include "../include/libft.h"
 
 t_signal	g_sig;
 // Main Logic Function
@@ -22,7 +23,10 @@ int	main(int ac, char **av, char **envp)
 		head = input(&data);
 		if (head)
 		{
-			command_executor(head, &data);
+			if (ft_strcmp(head->type, "pipe") == 0)
+				execute_pipe(head, &data);
+			else
+				command_executor(head, &data);
 			free_ast(head);
 		}
 	}
