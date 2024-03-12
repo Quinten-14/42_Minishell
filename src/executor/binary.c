@@ -19,6 +19,7 @@ char	*get_path(char *cmd, t_env *env)
 	if (path)
 	{
 		allpath = ft_split(path, ':');
+		free(path);
 		for (int i = 0; allpath[i]; i++)
 		{
 			path_part = ft_strjoin(allpath[i], "/");
@@ -44,6 +45,7 @@ int run_binary(char *cmd, t_data *data, char **argv)
     int status;
     char *path;
 
+<<<<<<< HEAD
     pid = fork();
     if (pid == -1)
     {
@@ -87,4 +89,28 @@ int run_binary(char *cmd, t_data *data, char **argv)
         else
             return EXIT_FAILURE; // Or any appropriate error code
     }
+=======
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("Fork failed");
+		return ;
+	}
+	if (pid == 0)
+	{
+		path = get_path(cmd, data->env_list);
+		if (path)
+		{
+			execve(path, argv, data->env);
+			perror("Error executing binary");
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			data->ret = WEXITSTATUS(status);
+	}
+>>>>>>> refs/remotes/origin/master
 }

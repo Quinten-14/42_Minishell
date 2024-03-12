@@ -1,6 +1,12 @@
 #ifndef DATA_H
 # define DATA_H
 
+/* Define Section */
+
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
 /* Enum Section */
 
 typedef enum e_ret_status
@@ -44,10 +50,11 @@ typedef struct s_env
 typedef struct s_data
 {
 	char	**env;
-	t_env	env_list;
+	t_env	*env_list;
 	char	*prompt;
 	bool	exit;
 	int		ret;
+<<<<<<< HEAD
     int pipe_in;
     int pipe_out;
     int input;
@@ -56,6 +63,19 @@ typedef struct s_data
     int fd_output;
     int pid;
     bool    cont;
+=======
+    int input;
+    int output;
+    int pipe_in;
+    int pipe_out;
+    int fd_out;
+    int fd_in;
+    int pid;
+    bool    parent;
+    bool    no_exec;
+    bool    last;
+    bool    stopped;
+>>>>>>> refs/remotes/origin/master
 }				t_data;
 
 typedef struct s_signal

@@ -25,14 +25,14 @@ int	exec_builtin(char *cmd, char **args, t_data *data)
 	if (ft_strcmp(cmd, "echo") == 0)
 		ret = echo_command(args);
 	if (ft_strcmp(cmd, "cd") == 0)
-		cd_command(args, &data->env_list);
+		cd_command(args, data->env_list);
 	if (ft_strcmp(cmd, "pwd") == 0)
 		ret = get_pwd();
 	if (ft_strcmp(cmd, "env") == 0)
-		ret = env_command(&data->env_list);
+		ret = env_command(data->env_list);
 	if (ft_strcmp(cmd, "export") == 0)
-		export_command(args, &data->env_list);
+		export_command(args, data->env_list);
 	if (ft_strcmp(cmd, "unset") == 0)
-		unset_command(&data->env_list, args);
+		unset_command(data->env_list, args);
 	return (ret);
 }

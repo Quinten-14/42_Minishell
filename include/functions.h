@@ -13,6 +13,8 @@ t_ASTNode	*parse_to_ast(t_input *input);
 t_ASTNode	*delete_ast_node(t_ASTNode *current);
 void		free_ast(t_ASTNode *head);
 void		init_data(t_data *data, char **envp);
+t_input		*check_syntax(t_input *input_list);
+void		free_input(t_input *input);
 
 /* Environment */
 t_env		*init_env_list(char **envp);
@@ -42,6 +44,12 @@ int run_binary(char *cmd, t_data *data, char **argv);
 /* Redir Utils */
 void    ft_close(int fd);
 void    back_to_std(t_data *data);
+void    close_fds(t_data *data);
+void    reset_fds(t_data *data);
+
+/* File Descriptors */
+void    ft_close(int fd);
+void    reset_fd(t_data *data);
 void    close_fds(t_data *data);
 void    reset_fds(t_data *data);
 
