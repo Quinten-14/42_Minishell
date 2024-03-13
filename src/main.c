@@ -4,6 +4,36 @@
 t_signal	g_sig;
 // Main Logic Function
 
+// env list to array
+char	**env_list_to_array(t_env *env)
+{
+	t_env	*tmp;
+	char	**envp;
+	int		i;
+
+	i = 0;
+	tmp = env;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	envp = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!envp)
+		return (NULL);
+	i = 0;
+	tmp = env;
+	while (tmp)
+	{
+		envp[i] = ft_strjoin(tmp->var_name, "=");
+		envp[i] = ft_strjoin(envp[i], tmp->content);
+		tmp = tmp->next;
+		i++;
+	}
+	envp[i] = NULL;
+	return (envp);
+}
+
 // Main Function
 int	main(int ac, char **av, char **envp)
 {
@@ -21,6 +51,7 @@ int	main(int ac, char **av, char **envp)
     increment_shell_lvl(data.env_list);
 	while (data.exit == false)
 	{
+		data.env = env_list_to_array(data.env_list);
 		head = input(&data);
 		if (head)
 		{

@@ -11,6 +11,16 @@ void    increment_shell_lvl(t_env *env)
         update_env(&env, "SHLVL", "1");
         return ;
     }
+    if (curr_lvl < 0)
+    {
+        update_env(&env, "SHLVL", "1");
+        return ;
+    }
+    if (curr_lvl > 99)
+    {
+        update_env(&env, "SHLVL", ft_itoa(curr_lvl % 100 + 1));
+        return ;
+    }
     update_env(&env, "SHLVL", ft_itoa(curr_lvl + 1));
     return ;
 }
