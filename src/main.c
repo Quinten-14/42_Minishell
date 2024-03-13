@@ -18,6 +18,7 @@ int	main(int ac, char **av, char **envp)
     reset_fds(&data);
 	init_data(&data, envp);
 	data.env_list = init_env_list(envp);
+    increment_shell_lvl(data.env_list);
 	while (data.exit == false)
 	{
 		head = input(&data);

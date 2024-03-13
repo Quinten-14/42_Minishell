@@ -24,6 +24,7 @@ void		create_env(t_env **env, char *var, char *update_val);
 void		delete_env(t_env **env, char *search);
 void		free_env_list(t_env *head);
 bool		var_exists(t_env *env, char *var);
+void    increment_shell_lvl(t_env *env);
 
 /* Expander */
 void		expander(t_ASTNode *head, t_data *data);
