@@ -39,22 +39,32 @@ void    execute_pipe(t_ASTNode *node, t_data *data)
 
     saved_stdout = dup(STDOUT);
     saved_stdin = dup(STDIN);
+
     if (pipe(pipefd) == -1)
     {
         perror("pipe");
         return;
     }
+
     pid = fork();
     if (pid == -1)
     {
         perror("fork");
         return;
     }
+
     if (pid == 0)
     {
         dup2(pipefd[1], STDOUT);
         close(pipefd[0]);
-        command_executor(node->left, data);
+        if (ft_strcmp(node->left->type, "pipe") == 0)
+        {
+            execute_pipe(node->left, data);
+        }
+        else
+        {
+            command_executor(node->left, data);
+        }
         exit(EXIT_SUCCESS);
     }
     else
@@ -64,6 +74,7 @@ void    execute_pipe(t_ASTNode *node, t_data *data)
         command_executor(node->right, data);
         waitpid(pid, &status, 0); // Wait for the specific child process to finish
     }
+
     dup2(saved_stdout, STDOUT);
     close(saved_stdout);
     dup2(saved_stdin, STDIN);
