@@ -46,6 +46,7 @@ void    execute_pipe(t_ASTNode *node, t_data *data);
 /* Redirections */
 void    redir(t_data *data, t_ASTNode *node);
 void    input_redir(t_data *data, t_ASTNode *node);
+char    *here_doc(t_data *data, t_ASTNode *node);
 
 /* Redir Utils */
 void    ft_close(int fd);

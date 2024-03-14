@@ -29,13 +29,31 @@ bool    has_pi(t_ASTNode *node)
     return (false);
 }
 
-void    execute_pipe(t_ASTNode *node, t_data *data)
+void handle_here_doc(t_ASTNode *node, t_data *data)
 {
-    int     pipefd[2];
-    pid_t   pid;
-    int     status;
-    int     saved_stdout;
-    int     saved_stdin;
+    char *here_doc_file = NULL;
+    if (node->right && ft_strcmp(node->right->type, "here_doc") == 0)
+        here_doc_file = here_doc(data, node->right);
+    if (here_doc_file != NULL)
+    {
+        int fd;
+        fd = open(here_doc_file, O_RDONLY);
+        if (fd != -1)
+        {
+            dup2(fd, STDIN);
+            close(fd);
+        }
+        free(here_doc_file);
+    }
+}
+
+void execute_pipe(t_ASTNode *node, t_data *data)
+{
+    int pipefd[2];
+    pid_t pid;
+    int status;
+    int saved_stdout;
+    int saved_stdin;
 
     saved_stdout = dup(STDOUT);
     saved_stdin = dup(STDIN);
@@ -71,6 +89,10 @@ void    execute_pipe(t_ASTNode *node, t_data *data)
     {
         dup2(pipefd[0], STDIN);
         close(pipefd[1]);
+        if (node->right && ft_strcmp(node->right->type, "here_doc") == 0)
+        {
+            handle_here_doc(node->right, data);  // Handle the here document after setting up the pipe
+        }
         command_executor(node->right, data);
         waitpid(pid, &status, 0); // Wait for the specific child process to finish
     }
@@ -81,19 +103,19 @@ void    execute_pipe(t_ASTNode *node, t_data *data)
     close(saved_stdin);
 }
 
-void    command_executor(t_ASTNode *node, t_data *data)
+void command_executor(t_ASTNode *node, t_data *data)
 {
-    char    **args;
-    int     saved_stdout;
-    int     saved_stdin;
+    char **args;
+    int saved_stdout;
+    int saved_stdin;
 
     saved_stdout = dup(STDOUT);
     saved_stdin = dup(STDIN);
-
     if (node->right && (ft_strcmp(node->right->type, "great") == 0 || ft_strcmp(node->right->type, "dgreat") == 0))
         redir(data, node->right);
     if (node->right && ft_strcmp(node->right->type, "less") == 0)
         input_redir(data, node->right);
+    handle_here_doc(node, data);
     args = arg_arr(node);
     if (args && ft_strcmp(node->content, "exit") == 0 && has_pi(node) == false)
         exit_command(data, args);
@@ -101,12 +123,6 @@ void    command_executor(t_ASTNode *node, t_data *data)
         data->ret = exec_builtin(node->content, args, data);
     else if (args)
         data->ret = run_binary(node->content, data, args);
-    // free args
-    ft_close(data->pipe_in);
-    ft_close(data->pipe_out);
-    data->pipe_in = -1;
-    data->pipe_out = -1;
-
     dup2(saved_stdout, STDOUT);
     close(saved_stdout);
     dup2(saved_stdin, STDIN);
