@@ -99,29 +99,48 @@ void	execute_pipe(t_ASTNode *node, t_data *data)
 
 void	command_executor(t_ASTNode *node, t_data *data)
 {
-	char	**args;
-	int		saved_stdout;
-	int		saved_stdin;
+    char	**args;
+    int		saved_stdout;
+    int		saved_stdin;
 
-	saved_stdout = dup(STDOUT);
-	saved_stdin = dup(STDIN);
-	if (node->right && (ft_strcmp(node->right->type, "great") == 0
-			|| ft_strcmp(node->right->type, "dgreat") == 0))
-		redir(data, node->right);
-	if (node->right && ft_strcmp(node->right->type, "less") == 0)
-		input_redir(data, node->right);
-	handle_here_doc(node, data);
-	args = arg_arr(node);
-	if (args && ft_strcmp(node->content, "exit") == 0 && has_pi(node) == false)
-		exit_command(data, args);
-	else if (args && is_builtin(node->content))
-		data->ret = exec_builtin(node->content, args, data);
-	else if (args)
-		data->ret = run_binary(node->content, data, args);
-	dup2(saved_stdout, STDOUT);
-	close(saved_stdout);
-	dup2(saved_stdin, STDIN);
-	close(saved_stdin);
+    saved_stdout = dup(STDOUT);
+    saved_stdin = dup(STDIN);
+	data->abort_exec = false;
+    if (node->right && (ft_strcmp(node->right->type, "great") == 0
+            || ft_strcmp(node->right->type, "dgreat") == 0))
+        redir(data, node->right);
+    if (node->right && ft_strcmp(node->right->type, "less") == 0)
+        input_redir(data, node->right);
+    if (data->abort_exec)
+    {
+		ft_putstr_fd("syntax error\n", STDERR);
+        dup2(saved_stdout, STDOUT);
+        close(saved_stdout);
+        dup2(saved_stdin, STDIN);
+        close(saved_stdin);
+        return;
+    }
+    handle_here_doc(node, data);
+	if (data->abort_exec)
+    {
+		ft_putstr_fd("syntax error\n", STDERR);
+        dup2(saved_stdout, STDOUT);
+        close(saved_stdout);
+        dup2(saved_stdin, STDIN);
+        close(saved_stdin);
+        return;
+    }
+    args = arg_arr(node);
+    if (args && ft_strcmp(node->content, "exit") == 0 && has_pi(node) == false)
+        exit_command(data, args);
+    else if (args && is_builtin(node->content))
+        data->ret = exec_builtin(node->content, args, data);
+    else if (args)
+        data->ret = run_binary(node->content, data, args);
+    dup2(saved_stdout, STDOUT);
+    close(saved_stdout);
+    dup2(saved_stdin, STDIN);
+    close(saved_stdin);
 }
 
 void	executor(t_ASTNode *node, t_data *data)

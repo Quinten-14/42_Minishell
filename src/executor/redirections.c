@@ -21,6 +21,12 @@ void	redir(t_data *data, t_ASTNode *node)
 {
 	char	*file;
 
+	if (!node->left)
+	{
+		data->abort_exec = true;
+		data->ret = 1;
+		return ;
+	}
 	file = ft_strdup(node->left->content);
 	if (!file)
 		return ((void)printf("Redirection Failed\n"));
@@ -40,6 +46,12 @@ void	redir(t_data *data, t_ASTNode *node)
 
 void	input_redir(t_data *data, t_ASTNode *node)
 {
+	if (!node->left)
+	{
+		data->abort_exec = true;
+		data->ret = 1;
+		return ;
+	}
 	ft_close(data->fd_input);
 	data->fd_input = open(node->left->content, O_RDONLY, S_IRWXU);
 	if (data->fd_input == -1)
@@ -56,6 +68,12 @@ char	*here_doc(t_data *data, t_ASTNode *node)
 	char	*line;
 	int		fd;
 
+	if (!node->left)
+	{
+		data->abort_exec = true;
+		data->ret = 1;
+		return (NULL);
+	}
 	file = "/tmp/here_doc";
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	if (fd == -1)
