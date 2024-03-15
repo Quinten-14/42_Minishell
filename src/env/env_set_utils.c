@@ -17,16 +17,21 @@ void	free_env_list(t_env *head)
 
 static t_env	*new_list(char *name, char *value)
 {
-	t_env	*env;
+    t_env	*env;
 
-	env = malloc(sizeof(t_env));
-	if (!env)
-		return (NULL);
-	env->content = value;
-	env->var_name = name;
-	env->next = NULL;
-	env->exported = true;
-	return (env);
+    env = malloc(sizeof(t_env));
+    if (!env)
+        return (NULL);
+    env->var_name = ft_strdup(name); // Use ft_strdup here
+    env->content = ft_strdup(value); // Use ft_strdup here
+    if (!env->var_name || !env->content) // Check if allocation failed
+    {
+        free(env);
+        return (NULL);
+    }
+    env->next = NULL;
+    env->exported = true;
+    return (env);
 }
 
 void	add_node_create(t_env **head, char *name, char *value)

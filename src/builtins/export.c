@@ -61,7 +61,8 @@ static void	handle_export(char *str, t_env *env)
 		return ;
 	if (new_value == NULL && get_from_env(env, substr) != NULL)
 		return ;
-	printf("exporting %s\n", substr);
+	if (DEBUG_MODE)
+		printf("exporting %s\n", substr);
 	update_env(&env, substr, new_value);
 }
 

@@ -34,3 +34,26 @@ char	**arg_arr(t_ASTNode *node)
 	arr[i] = NULL;
 	return (arr);
 }
+
+bool	has_pi(t_ASTNode *node)
+{
+	t_ASTNode	*tmp;
+
+	tmp = node;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->content, "|") == 0)
+			return (true);
+		tmp = tmp->right;
+	}
+	return (false);
+}
+
+void handle_abort_exec(int saved_stdout, int saved_stdin)
+{
+    ft_putstr_fd("syntax error\n", STDERR);
+    dup2(saved_stdout, STDOUT);
+    close(saved_stdout);
+    dup2(saved_stdin, STDIN);
+    close(saved_stdin);
+}
