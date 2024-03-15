@@ -45,26 +45,21 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGQUIT, SIG_IGN);
 	(void)ac;
 	(void)av;
-    reset_fds(&data);
+	reset_fds(&data);
 	init_data(&data, envp);
 	data.env_list = init_env_list(envp);
-    increment_shell_lvl(data.env_list);
+	increment_shell_lvl(data.env_list);
 	while (data.exit == false)
 	{
 		data.env = env_list_to_array(data.env_list);
 		head = input(&data);
 		if (head)
 		{
-			if (ft_strcmp(head->type, "pipe") == 0)
-				execute_pipe(head, &data);
-			else
-				command_executor(head, &data);
+			executor(head, &data);
 			free_ast(head);
 		}
 	}
 	if (data.exit == true)
-	{
 		free_env_list(data.env_list);
-	}
 	return (data.ret);
 }

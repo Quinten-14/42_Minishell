@@ -6,7 +6,7 @@
 
 /* Helper function to throw the redirection error */
 
-void    redir_error(char *file, t_data *data)
+void	redir_error(char *file, t_data *data)
 {
 	ft_putstr_fd("minishell: ", STDERR);
 	ft_putstr_fd(file, STDERR);
@@ -17,9 +17,9 @@ void    redir_error(char *file, t_data *data)
 
 /* Redir will be called if > or >> are the redirection needed */
 
-void    redir(t_data *data, t_ASTNode *node)
+void	redir(t_data *data, t_ASTNode *node)
 {
-	char    *file;
+	char	*file;
 
 	file = ft_strdup(node->left->content);
 	if (!file)
@@ -38,7 +38,7 @@ void    redir(t_data *data, t_ASTNode *node)
 	dup2(data->fd_output, STDOUT);
 }
 
-void    input_redir(t_data *data, t_ASTNode *node)
+void	input_redir(t_data *data, t_ASTNode *node)
 {
 	ft_close(data->fd_input);
 	data->fd_input = open(node->left->content, O_RDONLY, S_IRWXU);
@@ -50,10 +50,10 @@ void    input_redir(t_data *data, t_ASTNode *node)
 	dup2(data->fd_input, STDIN);
 }
 
-char *here_doc(t_data *data, t_ASTNode *node)
+char	*here_doc(t_data *data, t_ASTNode *node)
 {
 	char	*file;
-	char	*line;  // Buffer to hold the line
+	char	*line;
 	int		fd;
 
 	file = "/tmp/here_doc";
@@ -61,21 +61,21 @@ char *here_doc(t_data *data, t_ASTNode *node)
 	if (fd == -1)
 	{
 		redir_error(file, data);
-		return NULL;
+		return (NULL);
 	}
 	while (1)
 	{
-		line = get_next_line(STDIN_FILENO);  // Use get_next_line with STDIN_FILENO
+		line = get_next_line(STDIN_FILENO);
 		if (!line)
-			break;
+			break ;
 		if (ft_strcmp(ft_strtrim(line, "\n"), node->left->content) == 0)
 		{
 			free(line);
-			break;
+			break ;
 		}
 		ft_putstr_fd(line, fd);
 		free(line);
 	}
 	close(fd);
-	return ft_strdup(file);
+	return (ft_strdup(file));
 }

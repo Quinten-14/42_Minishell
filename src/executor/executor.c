@@ -123,3 +123,11 @@ void	command_executor(t_ASTNode *node, t_data *data)
 	dup2(saved_stdin, STDIN);
 	close(saved_stdin);
 }
+
+void	executor(t_ASTNode *node, t_data *data)
+{
+	if (ft_strcmp(node->type, "pipe") == 0)
+		execute_pipe(node, data);
+	else
+		command_executor(node, data);
+}
