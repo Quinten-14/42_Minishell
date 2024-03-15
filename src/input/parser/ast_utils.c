@@ -82,26 +82,26 @@ t_ASTNode	*add_right_node(t_ASTNode *parent, t_input *input, int *element)
 
 t_ASTNode	*add_ast_node(t_input *input, t_ASTNode *current, int *element)
 {
-    t_ASTNode	*new_node;
-    t_ASTNode	*command_node;
+	t_ASTNode	*new_node;
+	t_ASTNode	*command_node;
 
-    if (!input->prev)
-        new_node = add_left_node(current, input, element);
-    else if (ft_strcmp(input->prev->content, "|") == 0)
-        new_node = add_right_node(current, input, element);
-    else if ((ft_strcmp(input->type, "great") == 0)
-        || (ft_strcmp(input->type, "dgreat") == 0)
-        || (ft_strcmp(input->type, "here_doc") == 0)
-        || (ft_strcmp(input->type, "less") == 0))
-    {
-        command_node = current;
-        while (ft_strcmp(command_node->type, "command") != 0)
-            command_node = command_node->parent;
-        new_node = add_right_node(command_node, input, element);
-    }
-    else
-        new_node = add_left_node(current, input, element);
-    if (DEBUG_MODE)
-        printf("content = %s, type = %s\n", new_node->content, new_node->type);
-    return (new_node);
+	if (!input->prev)
+		new_node = add_left_node(current, input, element);
+	else if (ft_strcmp(input->prev->content, "|") == 0)
+		new_node = add_right_node(current, input, element);
+	else if ((ft_strcmp(input->type, "great") == 0)
+		|| (ft_strcmp(input->type, "dgreat") == 0)
+		|| (ft_strcmp(input->type, "here_doc") == 0)
+		|| (ft_strcmp(input->type, "less") == 0))
+	{
+		command_node = current;
+		while (ft_strcmp(command_node->type, "command") != 0)
+			command_node = command_node->parent;
+		new_node = add_right_node(command_node, input, element);
+	}
+	else
+		new_node = add_left_node(current, input, element);
+	if (DEBUG_MODE)
+		printf("content = %s, type = %s\n", new_node->content, new_node->type);
+	return (new_node);
 }

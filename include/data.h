@@ -54,15 +54,15 @@ typedef struct s_data
 	char	*prompt;
 	bool	exit;
 	int		ret;
-    int pipe_in;
-    int pipe_out;
-    int input;
-    int output;
-    int fd_input;
-    int fd_output;
-    int pid;
-    bool    cont;
-    bool    abort_exec;
+	int		pipe_in;
+	int		pipe_out;
+	int		input;
+	int		output;
+	int		fd_input;
+	int		d_output;
+	int		pid;
+	bool	cont;
+	bool	abort_exec;
 }				t_data;
 
 typedef struct s_signal

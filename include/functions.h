@@ -24,7 +24,7 @@ void		create_env(t_env **env, char *var, char *update_val);
 void		delete_env(t_env **env, char *search);
 void		free_env_list(t_env *head);
 bool		var_exists(t_env *env, char *var);
-void    increment_shell_lvl(t_env *env);
+void		increment_shell_lvl(t_env *env);
 
 /* Expander */
 void		expander(t_ASTNode *head, t_data *data);
@@ -39,26 +39,26 @@ int			echo_command(char **args);
 void		export_command(char **strs, t_env *env);
 
 /* Executer */
-void command_executor(t_ASTNode *node, t_data *data);
-int run_binary(char *cmd, t_data *data, char **argv);
-void    execute_pipe(t_ASTNode *node, t_data *data);
+void		command_executor(t_ASTNode *node, t_data *data);
+int			run_binary(char *cmd, t_data *data, char **argv);
+void		execute_pipe(t_ASTNode *node, t_data *data);
 
 /* Redirections */
-void    redir(t_data *data, t_ASTNode *node);
-void    input_redir(t_data *data, t_ASTNode *node);
-char    *here_doc(t_data *data, t_ASTNode *node);
+void		redir(t_data *data, t_ASTNode *node);
+void		input_redir(t_data *data, t_ASTNode *node);
+char		*here_doc(t_data *data, t_ASTNode *node);
 
 /* Redir Utils */
-void    ft_close(int fd);
-void    back_to_std(t_data *data);
-void    close_fds(t_data *data);
-void    reset_fds(t_data *data);
+void		ft_close(int fd);
+void		back_to_std(t_data *data);
+void		close_fds(t_data *data);
+void		reset_fds(t_data *data);
 
 /* File Descriptors */
-void    ft_close(int fd);
-void    reset_fd(t_data *data);
-void    close_fds(t_data *data);
-void    reset_fds(t_data *data);
+void		ft_close(int fd);
+void		reset_fd(t_data *data);
+void		close_fds(t_data *data);
+void		reset_fds(t_data *data);
 
 /* Signals */
 void		init_signal(void);

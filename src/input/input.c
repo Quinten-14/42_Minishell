@@ -7,8 +7,8 @@ void	init_data(t_data *data, char **envp)
 	data->prompt = NULL;
 	data->exit = false;
 	data->ret = 0;
-    data->input = dup(STDIN);
-    data->output = dup(STDOUT);
+	data->input = dup(STDIN);
+	data->output = dup(STDOUT);
 }
 
 t_ASTNode	*input(t_data *data)
