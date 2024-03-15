@@ -49,11 +49,11 @@ bool	has_pi(t_ASTNode *node)
 	return (false);
 }
 
-void handle_abort_exec(int saved_stdout, int saved_stdin)
+void	handle_abort_exec(int saved_stdout, int saved_stdin)
 {
-    ft_putstr_fd("syntax error\n", STDERR);
-    dup2(saved_stdout, STDOUT);
-    close(saved_stdout);
-    dup2(saved_stdin, STDIN);
-    close(saved_stdin);
+	ft_putstr_fd("syntax error\n", STDERR);
+	dup2(saved_stdout, STDOUT);
+	close(saved_stdout);
+	dup2(saved_stdin, STDIN);
+	close(saved_stdin);
 }
