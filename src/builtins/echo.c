@@ -8,45 +8,45 @@
 // so basically only check the first one but if the second one also is
 // -n then it is fine and also check that
 
-static bool echo_checker(char *str)
+static bool	echo_checker(char *str)
 {
-    int i;
+	int	i;
 
-    i = 1;
-    if (str[0] != '-')
-        return (false);
-    while (str[i])
-    {
-        if (str[i] != 'n')
-            return (false);
-        i++;
-    }
-    return (true);
+	i = 1;
+	if (str[0] != '-')
+		return (false);
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (false);
+		i++;
+	}
+	return (true);
 }
 
-int echo_command(char **args)
+int	echo_command(char **args)
 {
-    int i;
-    bool    passed_flags;
-    bool    found_flag;
+	int		i;
+	bool	passed_flags;
+	bool	found_flag;
 
-    i = 1;
-    passed_flags = false;
-    found_flag = false;
-    while (args[i])
-    {
-        if (echo_checker(args[i]) == true && passed_flags == false)
-            found_flag = true;
-        else
-        {
-            passed_flags = true;
-            ft_putstr_fd(args[i], 1);
-            if (args[i + 1] && args[i][0] != '\0')
+	i = 1;
+	passed_flags = false;
+	found_flag = false;
+	while (args[i])
+	{
+		if (echo_checker(args[i]) == true && passed_flags == false)
+			found_flag = true;
+		else
+		{
+			passed_flags = true;
+			ft_putstr_fd(args[i], 1);
+			if (args[i + 1] && args[i][0] != '\0')
 				write(1, " ", 1);
-        }
-        i++;
-    }
-    if (found_flag == false)
-        write(1, "\n", 1);
-    return (0);
+		}
+		i++;
+	}
+	if (found_flag == false)
+		write(1, "\n", 1);
+	return (0);
 }

@@ -59,7 +59,7 @@ typedef struct s_data
 	int		input;
 	int		output;
 	int		fd_input;
-	int		d_output;
+	int		fd_output;
 	int		pid;
 	bool	cont;
 	bool	abort_exec;
