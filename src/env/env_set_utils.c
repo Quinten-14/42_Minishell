@@ -22,18 +22,18 @@ static t_env	*new_list(char *name, char *value)
 	env = malloc(sizeof(t_env));
 	if (!env)
 		return (NULL);
-	env->var_name = ft_strdup(name); // Use ft_strdup here
+	env->var_name = ft_strdup(name);
 	if (value)
 	{
 		env->content = ft_strdup(value);
-		if (!env->content) // Check if allocation failed
+		if (!env->content)
 		{
 			free(env->var_name);
 			free(env);
 			return (NULL);
 		}
-	} // Use ft_strdup here
-	if (!env->var_name) // Check if allocation failed
+	}
+	if (!env->var_name)
 	{
 		free(env);
 		return (NULL);

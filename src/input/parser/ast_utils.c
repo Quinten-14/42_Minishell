@@ -41,13 +41,6 @@ t_ASTNode	*add_left_node(t_ASTNode *parent, t_input *input, int *element)
 		return (NULL);
 	parent->left = new_node;
 	new_node->parent = parent;
-	/*
-	if (input->quote == 1)
-		new_node->content = ft_strtrim(input->content, "'");
-	else if (input->quote == 2)
-		new_node->content = ft_strtrim(input->content, "\"");
-	else
-	*/
 	new_node->content = ft_strdup(input->content);
 	new_node->type = ft_strdup(input->type);
 	new_node->left = NULL;
@@ -67,13 +60,6 @@ t_ASTNode	*add_right_node(t_ASTNode *parent, t_input *input, int *element)
 		return (NULL);
 	parent->right = new_node;
 	new_node->parent = parent;
-	/*
-	if (input->quote == 1)
-		new_node->content = ft_strtrim(input->content, "'");
-	else if (input->quote == 2)
-		new_node->content = ft_strtrim(input->content, "\"");
-	else
-	*/
 	new_node->content = ft_strdup(input->content);
 	new_node->type = ft_strdup(input->type);
 	new_node->left = NULL;

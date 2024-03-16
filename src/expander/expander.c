@@ -96,14 +96,6 @@ void	expander(t_ASTNode *head, t_data *data)
 {
 	if (!head)
 		return ;
-	/*
-	if (ft_strcmp(head->type, "Var-Expansion") == 0)
-	{
-		expander_checker(head, data);
-		if (DEBUG_MODE)
-			printf("After Expander: %s\n", head->content);
-	}
-	*/
 	expander_checker(head, data);
 	if (DEBUG_MODE)
 		printf("After Expander: %s\n", head->content);

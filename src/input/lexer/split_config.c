@@ -17,8 +17,6 @@ int	count_size(char *str)
 	{
 		if (ft_strchr("<>|;&$", str[i]))
 			len += 2;
-		if (str[i] == 34 || str[i] == 39)
-			len++;
 		i++;
 	}
 	return (len + i + 1);

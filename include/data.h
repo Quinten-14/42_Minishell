@@ -25,7 +25,6 @@ typedef struct s_input_list
 {
 	char				*content;
 	char				*type;
-	int					quote;
 	struct s_input_list	*next;
 	struct s_input_list	*prev;
 }				t_input;

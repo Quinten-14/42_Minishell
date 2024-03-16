@@ -12,12 +12,6 @@ t_input	*new_list(char *str, int i, char **arr)
 		return (NULL);
 	new->content = ft_strdup(str);
 	new->type = check_types(str, i, arr);
-	if (str[0] == 34 && str[ft_strlen(str) - 1] == 34)
-		new->quote = 2;
-	else if (str[0] == 39 && str[ft_strlen(str) - 1] == 39)
-		new->quote = 1;
-	else
-		new->quote = 0;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
@@ -49,7 +43,6 @@ void	free_input(t_input *input)
 		input = destroy_node(input);
 }
 
-// still need protection for if new list fails
 void	add_node_input(t_input **head, char *str, int i, char **arr)
 {
 	t_input	*new_node;
