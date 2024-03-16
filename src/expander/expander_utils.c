@@ -1,6 +1,8 @@
 #include "../../include/minishell.h"
 #include "../../include/libft.h"
 
+char	*handle_dollar(char *result, t_ASTNode *node, t_data *data, int *i);
+
 // function to check the type of expansion. Also make it fill in the right
 // stuff so for example
 // echo $hello$hello gives worldworld if hello=world
