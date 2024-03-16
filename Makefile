@@ -28,7 +28,7 @@ SOURCES = main.c input/input.c input/lexer/lexer.c input/lexer/split_config.c \
 		  input/parser/ast.c input/parser/ast_utils.c utils/arrays.c \
 		  expander/expander.c utils/pid.c executor/executor.c executor/builtin.c\
 		  signals/signal.c executor/executor_utils.c executor/binary.c utils/redir_utils.c\
-		  executor/redirections.c env/shell_lvl.c
+		  executor/redirections.c env/shell_lvl.c expander/expander_utils.c
 
 SRCS = $(addprefix $(SRCS_DIR)/,$(SOURCES))
 OBJS = $(addprefix $(OBJS_DIR)/,$(SOURCES:.c=.o))

@@ -25,12 +25,14 @@ t_ASTNode	*create_ast(t_input *input, int *element)
 	head->parent = NULL;
 	head->left = NULL;
 	head->right = NULL;
+	/*
 	if (input->quote == 1)
 		head->content = ft_strtrim(input->content, "'");
 	else if (input->quote == 2)
 		head->content = ft_strtrim(input->content, "\"");
 	else
-		head->content = ft_strdup(input->content);
+	*/
+	head->content = ft_strdup(input->content);
 	head->type = ft_strdup(input->type);
 	(*element)--;
 	return (head);

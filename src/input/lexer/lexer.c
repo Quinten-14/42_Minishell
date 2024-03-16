@@ -4,6 +4,7 @@
 void		add_node_input(t_input **head, char *str, int i, char **arr);
 t_input		*new_list(char *str, int i, char **arr);
 void		print_list(t_input *head);
+bool		check_expansion(char *str);
 
 static bool	check_redir(char *str)
 {
@@ -42,7 +43,8 @@ char	*check_types(char *str, int i, char **arr)
 	}
 	else if (i > 0 && (check_redir(arr[i - 1]) == true))
 		type = "file";
-	else if (ft_strchr(str, '$') != 0 && str[0] != '\'' && ft_strlen(str) != 1)
+	//else if (ft_strchr(str, '$') != 0 && str[0] != '\'' && ft_strlen(str) != 1)
+	else if (check_expansion(str) && ft_strlen(str) != 1)
 		type = "Var-Expansion";
 	else if (i == 0 || !command_inline)
 	{
