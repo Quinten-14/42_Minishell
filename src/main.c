@@ -41,8 +41,6 @@ int	main(int ac, char **av, char **envp)
 	t_ASTNode	*head;
 
 	g_sig.in_child = false;
-	signal(SIGINT, handle_c);
-	signal(SIGQUIT, SIG_IGN);
 	(void)ac;
 	(void)av;
 	reset_fds(&data);
@@ -51,6 +49,7 @@ int	main(int ac, char **av, char **envp)
 	increment_shell_lvl(data.env_list);
 	while (data.exit == false)
 	{
+		run_signals(1);
 		data.env = env_list_to_array(data.env_list);
 		head = input(&data);
 		if (head)

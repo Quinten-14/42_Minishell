@@ -109,6 +109,7 @@ void	command_executor(t_ASTNode *node, t_data *data)
 
 void	executor(t_ASTNode *node, t_data *data)
 {
+	run_signals(2);
 	if (ft_strcmp(node->type, "pipe") == 0)
 		execute_pipe(node, data);
 	else

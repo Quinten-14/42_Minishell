@@ -62,9 +62,7 @@ void		close_fds(t_data *data);
 void		reset_fds(t_data *data);
 
 /* Signals */
-void		init_signal(void);
-void		handle_c(int num);
-void		handle_quit(int num);
+void		run_signals(int sig);
 t_ASTNode	*handle_d(t_data *data);
 
 /* Utils */
