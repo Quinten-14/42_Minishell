@@ -1,14 +1,35 @@
 #include "../../../include/minishell.h"
 #include "../../../include/libft.h"
 
+void	switch_command(t_input *node)
+{
+	t_input	*node1;
+	t_input	*node2;
+
+	if (node == NULL || node->next == NULL || node->next->next == NULL)
+		return ;
+	node1 = node->next;
+	node2 = node->next->next;
+	if (node->prev != NULL)
+		node->prev->next = node2;
+	node1->prev = node;
+	if (node2->next != NULL)
+		node2->next->prev = node1;
+	node->next = node1;
+	node1->next = node2->next;
+	node2->prev = node->prev;
+	node2->next = node;
+	node->prev = node2;
+}
+
 int	check_type(char *str)
 {
-	if (ft_strcmp(str, "here_doc") == 0 || ft_strcmp(str, "less") == 0)
+	if (ft_strcmp(str, "here_doc") == 0 || ft_strcmp(str, "pipe") == 0)
 		return (1);
 	else if (ft_strcmp(str, "great") == 0 || ft_strcmp(str, "dgreat") == 0)
 		return (1);
-	else if (ft_strcmp(str, "pipe") == 0)
-		return (1);
+	//else if (ft_strcmp(str, "less") == 0)
+	//	return (1);
 	return (0);
 }
 
@@ -24,7 +45,12 @@ t_input	*check_syntax(t_input *input_list)
 			free_input(input_list);
 			return (NULL);
 		}
+		if ((!current->prev || (ft_strcmp(current->prev->type, "pipe") == 0))
+			&& (ft_strcmp(current->type, "less") == 0))
+			switch_command(current);
 		current = current->next;
 	}
-	return (input_list);
+	while (current->prev)
+		current = current->prev;
+	return (current);
 }
