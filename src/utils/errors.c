@@ -3,7 +3,7 @@
 
 void	throw_fatal(char *str, int exit_code)
 {
-	printf("%s\n", str);
+	printf(ANSI_RED "%s\n" ANSI_RESET, str);
 	exit(exit_code);
 }
 

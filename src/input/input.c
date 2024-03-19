@@ -16,7 +16,7 @@ t_ASTNode	*input(t_data *data)
 	t_input		*input;
 	t_ASTNode	*head;
 
-	data->prompt = readline("Minishell-42: ");
+	data->prompt = readline(ANSI_GREEN "Minishell-42: " ANSI_RESET);
 	if (data->prompt == NULL)
 		return (handle_d(data));
 	if (ft_strlen(data->prompt) == 0)
