@@ -34,7 +34,10 @@ void	update_env(t_env **head, char *var, char *update_val)
     {
         if (ft_strcmp(env->var_name, var) == 0)
         {
-            free(env->content);
+            if (env->content != NULL)
+            {
+                free(env->content);
+            }
             if (update_val != NULL)
             {
                 env->content = ft_strdup(update_val);
