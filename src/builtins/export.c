@@ -53,10 +53,14 @@ static void	handle_export(char *str, t_env *env)
 	if (str[i] == '=')
 		i++;
 	substr = ft_substr(str, 0, j);
+	if (!substr)
+		throw_fatal("Allocation Failed", 1);
 	if (ft_strlen(str) == j)
 		new_value = NULL;
 	else
 		new_value = ft_substr(str, i, (ft_strlen(str) - i));
+	if (!new_value)
+		throw_fatal("Allocation Failed", 1);
 	if (var_exists(env, substr) && new_value == NULL)
 		return ;
 	if (new_value == NULL && get_from_env(env, substr) != NULL)
