@@ -64,6 +64,8 @@ static void	handle_export(char *str, t_env *env)
 	if (DEBUG_MODE)
 		printf("exporting %s\n", substr);
 	update_env(&env, substr, new_value);
+    free(substr);
+    free(new_value);
 }
 
 void	export_command(char **strs, t_env *env)
