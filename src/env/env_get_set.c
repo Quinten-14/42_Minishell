@@ -27,23 +27,27 @@ char	*get_from_env(t_env *env, char *search)
 
 void	update_env(t_env **head, char *var, char *update_val)
 {
-	t_env	*env;
+    t_env	*env;
 
-	env = *head;
-	while (env)
-	{
-		if (ft_strcmp(env->var_name, var) == 0)
-		{
-			env->content = ft_strdup(update_val);
-			if (env->content == NULL)
-				throw_fatal("Allocation Failed", 1);
-			if (DEBUG_MODE)
-				printf("%s Got Updated to %s\n", env->var_name, env->content);
-			return ;
-		}
-		env = env->next;
-	}
-	create_env(head, var, update_val);
+    env = *head;
+    while (env)
+    {
+        if (ft_strcmp(env->var_name, var) == 0)
+        {
+            free(env->content);
+            if (update_val != NULL)
+            {
+                env->content = ft_strdup(update_val);
+                if (env->content == NULL)
+                    throw_fatal("Allocation Failed", 1);
+            }
+            else
+                env->content = NULL;
+            return ;
+        }
+        env = env->next;
+    }
+    create_env(head, var, update_val);
 }
 
 void	create_env(t_env **env, char *var, char *update_val)

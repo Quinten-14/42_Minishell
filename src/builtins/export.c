@@ -59,7 +59,7 @@ static void	handle_export(char *str, t_env *env)
 		new_value = NULL;
 	else
 		new_value = ft_substr(str, i, (ft_strlen(str) - i));
-	if (!new_value)
+	if (!new_value && ft_strlen(str) != j)
 		throw_fatal("Allocation Failed", 1);
 	if (var_exists(env, substr) && new_value == NULL)
 		return ;
