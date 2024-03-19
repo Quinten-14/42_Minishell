@@ -10,6 +10,7 @@ char	**env_list_to_array(t_env *env)
 	t_env	*tmp;
 	char	**envp;
 	int		i;
+    char    *tmp_str;
 
 	i = 0;
 	tmp = env;
@@ -25,13 +26,43 @@ char	**env_list_to_array(t_env *env)
 	tmp = env;
 	while (tmp)
 	{
-		envp[i] = ft_strjoin(tmp->var_name, "=");
-		envp[i] = ft_strjoin(envp[i], tmp->content);
-		tmp = tmp->next;
-		i++;
+        tmp_str = ft_strjoin(tmp->var_name, "=");
+        if (!tmp_str)
+        {
+            while (i > 0)
+                free(envp[--i]);
+            free(envp);
+            return NULL;
+        }
+        envp[i] = ft_strjoin(tmp_str, tmp->content);
+        free(tmp_str);
+        if (!envp[i])
+        {
+            while (i > 0)
+                free(envp[--i]);
+            free(envp);
+            return NULL;
+        }
+        tmp = tmp->next;
+        i++;
 	}
 	envp[i] = NULL;
 	return (envp);
+}
+
+void    free_env_array(char **env)
+{
+    int i;
+
+    i = 0;
+    if (!env)
+        return ;
+    while (env[i] != NULL)
+    {
+        free(env[i]);
+        i++;
+    }
+    free(env);
 }
 
 // Main Function
@@ -57,6 +88,7 @@ int	main(int ac, char **av, char **envp)
 			executor(head, &data);
 			free_ast(head);
 		}
+        free_env_array(data.env);
 	}
 	if (data.exit == true)
 		free_env_list(data.env_list);

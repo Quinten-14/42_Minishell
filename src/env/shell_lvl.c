@@ -5,8 +5,11 @@ void	increment_shell_lvl(t_env *env)
 {
 	int	curr_lvl;
 	char	*lvl;
+    char    *shlvl;
 
-	curr_lvl = ft_atoi(get_from_env(env, "SHLVL"));
+    shlvl = get_from_env(env, "SHLVL");
+	curr_lvl = ft_atoi(shlvl);
+    free(shlvl);
 	if (!curr_lvl)
 	{
 		update_env(&env, "SHLVL", "1");

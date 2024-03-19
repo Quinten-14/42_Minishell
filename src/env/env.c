@@ -12,6 +12,12 @@ static t_env	*new_list(char *content)
 		return (NULL);
 	env->content = ft_strdup(vars[1]);
 	env->var_name = ft_strdup(vars[0]);
+    if (!env->content || !env->var_name)
+    {
+        free(env->content);
+        free(env->var_name);
+        free(env);
+    }
 	env->next = NULL;
 	env->exported = true;
 	free_array(vars);

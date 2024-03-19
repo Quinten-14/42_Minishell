@@ -81,8 +81,8 @@ void	command_executor(t_ASTNode *node, t_data *data)
 	int		saved_stdout;
 	int		saved_stdin;
 
-	saved_stdout = dup(STDOUT);
-	saved_stdin = dup(STDIN);
+	saved_stdout = dup(STDOUT_FILENO);
+	saved_stdin = dup(STDIN_FILENO);
 	data->abort_exec = false;
 	if (node->right && (ft_strcmp(node->right->type, "great") == 0
 			|| ft_strcmp(node->right->type, "dgreat") == 0))
@@ -101,6 +101,7 @@ void	command_executor(t_ASTNode *node, t_data *data)
 		data->ret = exec_builtin(node->content, args, data);
 	else if (args)
 		data->ret = run_binary(node->content, data, args);
+    free(args);
 	dup2(saved_stdout, STDOUT);
 	close(saved_stdout);
 	dup2(saved_stdin, STDIN);

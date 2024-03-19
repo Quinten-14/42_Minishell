@@ -27,4 +27,5 @@ void	cd_command(char **strs, t_env *env)
 	if (chdir(path) < 0)
 		return ((void)perror("cd"));
 	update_env(&env, "PWD", getcwd(NULL, 0));
+    free(path);
 }

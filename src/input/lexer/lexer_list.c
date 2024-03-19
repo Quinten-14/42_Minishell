@@ -37,10 +37,16 @@ t_input	*destroy_node(t_input *input)
 
 void	free_input(t_input *input)
 {
-	while (input->next != NULL)
-		input = input->next;
-	while (input)
-		input = destroy_node(input);
+    t_input *next;
+
+    while (input != NULL)
+    {
+        next = input->next;
+        free(input->content);
+        free(input->type);
+        free(input);
+        input = next;
+    }
 }
 
 void	add_node_input(t_input **head, char *str, int i, char **arr)
