@@ -7,7 +7,7 @@ static int	print_exports(t_env *env)
 		return (ERROR);
 	while (env && env->next)
 	{
-		if (env->content != NULL)
+		if (env->content != NULL && ft_strcmp(env->content, "-NULL-EMPTY-") != 0)
 			printf("declare -x %s=\"%s\"\n", env->var_name, env->content);
 		else
 			printf("declare -x %s\n", env->var_name);
@@ -15,7 +15,7 @@ static int	print_exports(t_env *env)
 	}
 	if (env)
 	{
-		if (env->content != NULL)
+		if (env->content != NULL && ft_strcmp(env->content, "-NULL-EMPTY-") != 0)
 			printf("declare -x %s=\"%s\"\n", env->var_name, env->content);
 		else
 			printf("declare -x %s\n", env->var_name);
@@ -56,14 +56,14 @@ static void	handle_export(char *str, t_env *env)
 	if (!substr)
 		throw_fatal("Allocation Failed", 1);
 	if (ft_strlen(str) == j)
-		new_value = NULL;
+		new_value = "-NULL-EMPTY-";
 	else
 		new_value = ft_substr(str, i, (ft_strlen(str) - i));
 	if (!new_value && ft_strlen(str) != j)
 		throw_fatal("Allocation Failed", 1);
-	if (var_exists(env, substr) && new_value == NULL)
+	if (var_exists(env, substr) && ft_strcmp(new_value, "-NULL-EMPTY-") == 0)
 		return ;
-	if (new_value == NULL && get_from_env(env, substr) != NULL)
+	if (get_from_env(env, substr) != NULL && ft_strcmp(new_value, "-NULL-EMPTY-") == 0)
 		return ;
 	if (DEBUG_MODE)
 		printf("exporting %s\n", substr);
