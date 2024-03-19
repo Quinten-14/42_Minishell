@@ -10,11 +10,11 @@ int	env_command(t_env *env)
 		return (ERROR);
 	while (env && env->next)
 	{
-		if (env->content != NULL)
+		if (env->content != NULL && ft_strcmp(env->content, "-NULL-EMPTY-") != 0)
 			printf("%s=%s\n", env->var_name, env->content);
 		env = env->next;
 	}
-	if (env && (env->content != NULL))
+	if (env && (env->content != NULL && ft_strcmp(env->content, "-NULL-EMPTY-") != 0))
 		printf("%s=%s\n", env->var_name, env->content);
 	return (SUCCESS);
 }
