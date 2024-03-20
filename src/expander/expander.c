@@ -88,6 +88,7 @@ void	expander_checker(t_ASTNode *node, t_data *data)
 			result = join_char(result, node->content[i]);
 		i++;
 	}
+	free(node->content);
 	node->content = ft_strdup(result);
 	free(result);
 }

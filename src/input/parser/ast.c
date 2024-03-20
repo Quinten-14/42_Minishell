@@ -17,10 +17,11 @@ void	free_ast(t_ASTNode *head)
 
 t_ASTNode *create_ast(t_input *input, int *element)
 {
-    t_ASTNode *head = malloc(sizeof(t_ASTNode));
+    t_ASTNode	*head;
+
+	head = malloc(sizeof(t_ASTNode));
     if (!head)
         return NULL;
-
     head->parent = NULL;
     head->left = NULL;
     head->right = NULL;
@@ -28,17 +29,17 @@ t_ASTNode *create_ast(t_input *input, int *element)
     if (!head->content)
     {
         free(head);
-        return NULL;
+        return (NULL);
     }
     head->type = ft_strdup(input->type);
     if (!head->type)
     {
         free(head->content);
         free(head);
-        return NULL;
+        return (NULL);
     }
     (*element)--;
-    return head;
+    return (head);
 }
 
 
