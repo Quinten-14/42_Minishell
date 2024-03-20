@@ -28,8 +28,23 @@ int	check_type(char *str)
 		return (1);
 	else if (ft_strcmp(str, "great") == 0 || ft_strcmp(str, "dgreat") == 0)
 		return (1);
-	//else if (ft_strcmp(str, "less") == 0)
-	//	return (1);
+	return (0);
+}
+
+int	check_heredoc(t_input *current, t_input *head)
+{
+	if ((ft_strcmp(current->prev->type, "here_doc") == 0)
+		&& (ft_strcmp(current->next->type, "great") == 0))
+	{
+		free_input(head);
+		return (1);
+	}
+	else if ((ft_strcmp(current->prev->type, "here_doc") == 0)
+		&& (ft_strcmp(current->next->type, "less") == 0))
+	{
+		free_input(head);
+		return (1);
+	}
 	return (0);
 }
 
@@ -40,6 +55,11 @@ t_input	*check_syntax(t_input *input_list)
 	current = input_list;
 	while (current && current->next)
 	{
+		if (current->prev)
+		{
+			if (check_heredoc(current, input_list) == 1)
+				return (NULL);
+		}
 		if (check_type(current->type) && check_type(current->next->type))
 		{
 			free_input(input_list);

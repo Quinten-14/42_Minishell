@@ -63,10 +63,11 @@ t_input	*lexer(char *prompt)
 
 	input_list = NULL;
 	splitted = convert_input(prompt);
-	if (!splitted)
-		return (NULL);
 	if (!splitted[0])
+	{
+		free_array(splitted);
 		return (NULL);
+	}
 	input_list = new_list(splitted[0], 0, splitted);
 	if (!input_list)
 		return (NULL);

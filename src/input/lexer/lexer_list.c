@@ -43,7 +43,6 @@ void	free_input(t_input *input)
     {
         next = input->next;
         free(input->content);
-        free(input->type);
         free(input);
         input = next;
     }
