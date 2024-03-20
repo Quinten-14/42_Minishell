@@ -69,6 +69,8 @@ static void	handle_export(char *str, t_env *env)
 		printf("exporting %s\n", substr);
 	update_env(&env, substr, new_value);
     free(substr);
+    if (new_value != NULL && ft_strcmp(new_value, "-NULL-EMPTY-") != 0)
+        free(new_value);
 }
 
 void	export_command(char **strs, t_env *env)
