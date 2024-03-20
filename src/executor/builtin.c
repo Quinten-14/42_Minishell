@@ -22,6 +22,7 @@ int	exec_builtin(char *cmd, char **args, t_data *data)
 {
 	int	ret;
 
+	ret = 0;
 	if (ft_strcmp(cmd, "echo") == 0)
 		ret = echo_command(args);
 	if (ft_strcmp(cmd, "cd") == 0)
