@@ -1,14 +1,14 @@
 #include "../../../include/minishell.h"
 #include "../../../include/libft.h"
 
-t_ASTNode	*create_and_add_nodes(t_input *input, t_ASTNode *curr, int *elem)
+t_ASTNode	*create_and_add_nodes(t_input **input, t_ASTNode *curr, int *elem)
 {
-	while (input->next != NULL)
+	while ((*input)->next != NULL)
 	{
-		curr = add_ast_node(input, curr, elem);
-		input = input->next;
+		curr = add_ast_node(*input, curr, elem);
+		*input = (*input)->next;
 	}
-	curr = add_ast_node(input, curr, elem);
+	curr = add_ast_node(*input, curr, elem);
 	return (curr);
 }
 

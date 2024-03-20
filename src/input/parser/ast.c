@@ -2,7 +2,7 @@
 #include "../../../include/libft.h"
 
 void		free_input(t_input *input);
-t_ASTNode	*create_and_add_nodes(t_input *input, t_ASTNode *curr, int *elem);
+t_ASTNode	*create_and_add_nodes(t_input **input, t_ASTNode *curr, int *elem);
 
 void	free_ast(t_ASTNode *head)
 {
@@ -71,7 +71,7 @@ t_ASTNode	*build_ast(t_input *input, int element)
 	input = input->next;
 	while (element != 0)
 	{
-		curr = create_and_add_nodes(input, curr, &element);
+		curr = create_and_add_nodes(&input, curr, &element);
 		while ((curr->parent != 0) && (ft_strcmp(curr->content, "|")) != 0)
 		{
 			if (DEBUG_MODE)
