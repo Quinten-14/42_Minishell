@@ -3,7 +3,7 @@
 
 void	increment_shell_lvl(t_env *env)
 {
-	int	curr_lvl;
+	int		curr_lvl;
 	char	*lvl;
     char    *shlvl;
 

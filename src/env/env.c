@@ -10,8 +10,8 @@ static t_env	*new_list(char *content)
 	env = malloc(sizeof(t_env));
 	if (!env)
 		return (NULL);
-	env->content = ft_strdup(vars[1]);
 	env->var_name = ft_strdup(vars[0]);
+	env->content = ft_strdup(vars[1]);
     if (!env->content || !env->var_name)
     {
         free(env->content);

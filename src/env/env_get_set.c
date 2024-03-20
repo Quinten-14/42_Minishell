@@ -34,6 +34,7 @@ void	update_env(t_env **head, char *var, char *update_val)
 	{
 		if (ft_strcmp(env->var_name, var) == 0)
 		{
+			free(env->content);
 			env->content = ft_strdup(update_val);
 			if (env->content == NULL)
 				throw_fatal("Allocation Failed", 1);
