@@ -67,6 +67,9 @@ typedef struct s_data
 typedef struct s_signal
 {
 	bool				in_heredoc;
+	bool				enter_pressed;
+	bool				abort_exec;
+	int					here_doc_pid;
 }						t_signal;
 
 #endif

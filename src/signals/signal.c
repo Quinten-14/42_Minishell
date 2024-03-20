@@ -6,7 +6,7 @@ void	handle_c(int num)
 	(void)num;
 	write(1, "\n", 1);
 	rl_on_new_line();
-	rl_replace_line("", 0);
+	//rl_replace_line("", 0);
 	rl_redisplay();
 }
 
@@ -16,11 +16,23 @@ void	sigint_handler_in_process(int sig)
 	write(1, "\n", 1);
 }
 
-void	sigint_handler_in_heredoc(int sig)
+void sigint_handler(int sig)
 {
-	(void) sig;
-	g_sig.in_heredoc = true;
-	write(1, "\n", 1);
+    (void)sig;
+    if (g_sig.here_doc_pid > 0)
+    {
+        // Terminate the child process
+        kill(g_sig.here_doc_pid, SIGTERM);
+        // Delete the temporary file
+        unlink("/tmp/here_doc");
+        // Set the here_doc_interrupted variable to true
+        g_sig.abort_exec = true;
+    }
+    else
+    {
+        // If not in here_doc, print a newline
+        write(STDOUT_FILENO, "\n", 1);
+    }
 }
 
 void	sigquit_handler_in_process(int sig)
@@ -31,8 +43,11 @@ void	sigquit_handler_in_process(int sig)
 
 t_ASTNode	*handle_d(t_data *data)
 {
+	if (!g_sig.in_heredoc)
+	{
 	ft_putendl_fd("exit ", 2);
 	data->exit = true;
+	}
 	return (NULL);
 }
 
@@ -40,7 +55,6 @@ void	run_signals(int sig)
 {
 	if (sig == 1)
 	{
-		g_sig.in_heredoc = false;
 		signal(SIGINT, handle_c);
 		signal(SIGQUIT, SIG_IGN);
 	}
@@ -51,7 +65,7 @@ void	run_signals(int sig)
 	}
 	else if (sig == 3)
 	{
-		signal(SIGINT, sigint_handler_in_heredoc);
+		signal(SIGINT, sigint_handler);
 		signal(SIGQUIT, sigquit_handler_in_process);
 	}
 }

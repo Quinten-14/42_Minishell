@@ -73,6 +73,8 @@ void	command_executor(t_ASTNode *node, t_data *data)
 	if (data->abort_exec)
 		return ((void)handle_abort_exec(saved_stdout, saved_stdin));
 	handle_here_doc(node, data);
+	if (g_sig.abort_exec)
+		return ;
 	if (data->abort_exec)
 		return ((void)handle_abort_exec(saved_stdout, saved_stdin));
 	args = arg_arr(node);
