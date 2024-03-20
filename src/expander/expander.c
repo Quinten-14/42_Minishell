@@ -21,8 +21,8 @@ char	*var_expansion(t_ASTNode *node, t_env *env, int *i)
 	while (node->content[*i] && node->content[*i] != '$'
 		&& node->content[*i] != '=')
 	{
-		if (node->content[*i] == '$'
-			|| node->content[*i] == '\"' || node->content[*i] == '\'')
+		if (node->content[*i] == '$' || node->content[*i] == '\"'
+			|| node->content[*i] == '\'')
 			break ;
 		temp = ft_substr(node->content, *i, 1);
 		new_result = ft_strjoin(result, temp);
@@ -35,6 +35,7 @@ char	*var_expansion(t_ASTNode *node, t_env *env, int *i)
 	result = get_from_env(env, result);
 	if (!result || ft_strcmp(result, "-NULL-EMPTY-") == 0)
 		result = ft_strdup("");
+	free(new_result);
 	return (result);
 }
 
@@ -49,20 +50,30 @@ char	*join_free_old(char *result, char *str_to_join)
 
 char	*handle_dollar(char *result, t_ASTNode *node, t_data *data, int *i)
 {
+	char	*expansion;
+
 	if (node->content[*i + 1] == '$')
 	{
-		result = join_free_old(result, get_process_id());
+		expansion = get_process_id();
+		result = join_free_old(result, expansion);
+		free(expansion);
 		(*i)++;
 	}
 	else if (node->content[*i + 1] == '?')
 	{
-		result = join_free_old(result, ft_itoa(data->ret));
+		expansion = ft_itoa(data->ret);
+		result = join_free_old(result, expansion);
+		free(expansion);
 		(*i)++;
 	}
 	else if (!node->content[*i + 1])
 		result = join_free_old(result, "$");
 	else
-		result = join_free_old(result, var_expansion(node, data->env_list, i));
+	{
+		expansion = var_expansion(node, data->env_list, i);
+		result = join_free_old(result, expansion);
+		free(expansion);
+	}
 	return (result);
 }
 

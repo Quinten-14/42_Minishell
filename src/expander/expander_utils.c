@@ -1,5 +1,5 @@
-#include "../../include/minishell.h"
 #include "../../include/libft.h"
+#include "../../include/minishell.h"
 
 char	*handle_dollar(char *result, t_ASTNode *node, t_data *data, int *i);
 
