@@ -67,6 +67,7 @@ char	*here_doc(t_data *data, t_ASTNode *node)
 	char	*file;
 	char	*line;
 	int		fd;
+    char    *trimmed;
 
 	if (!node->left)
 	{
@@ -86,14 +87,18 @@ char	*here_doc(t_data *data, t_ASTNode *node)
 		line = get_next_line(STDIN_FILENO);
 		if (!line)
 			break ;
-		if (ft_strcmp(ft_strtrim(line, "\n"), node->left->content) == 0)
+        trimmed = ft_strtrim(line, "\n");
+		if (ft_strcmp(trimmed, node->left->content) == 0)
 		{
 			free(line);
 			break ;
 		}
 		ft_putstr_fd(line, fd);
 		free(line);
+        free(trimmed);
 	}
+    free(trimmed);
 	ft_close(fd);
+    get_next_line(fd);
 	return (ft_strdup(file));
 }
