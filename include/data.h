@@ -66,7 +66,7 @@ typedef struct s_data
 
 typedef struct s_signal
 {
-	bool				in_child;
+	bool				in_heredoc;
 }						t_signal;
 
 #endif

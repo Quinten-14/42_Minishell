@@ -67,20 +67,21 @@ static void	write_to_temp_file(int fd, t_ASTNode *node)
 	char	*line;
 	char	*trimmed;
 
-	while (1)
+	while (g_sig.in_heredoc == false)
 	{
 		line = get_next_line(STDIN_FILENO);
-		if (!line)
-			break ;
-		trimmed = ft_strtrim(line, "\n");
-		if (ft_strcmp(trimmed, node->left->content) == 0)
+		if (line)
 		{
+			trimmed = ft_strtrim(line, "\n");
+			if (ft_strcmp(trimmed, node->left->content) == 0)
+			{
+				free(line);
+				break ;
+			}
+			ft_putstr_fd(line, fd);
 			free(line);
-			break ;
+			free(trimmed);
 		}
-		ft_putstr_fd(line, fd);
-		free(line);
-		free(trimmed);
 	}
 	free(trimmed);
 	get_next_line(-1);
@@ -91,6 +92,7 @@ char	*here_doc(t_data *data, t_ASTNode *node)
 	char	*file;
 	int		fd;
 
+	run_signals(3);
 	if (!node->left)
 	{
 		data->abort_exec = true;

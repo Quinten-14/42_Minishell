@@ -16,6 +16,13 @@ void	sigint_handler_in_process(int sig)
 	write(1, "\n", 1);
 }
 
+void	sigint_handler_in_heredoc(int sig)
+{
+	(void) sig;
+	g_sig.in_heredoc = true;
+	write(1, "\n", 1);
+}
+
 void	sigquit_handler_in_process(int sig)
 {
 	(void) sig;
@@ -33,12 +40,18 @@ void	run_signals(int sig)
 {
 	if (sig == 1)
 	{
+		g_sig.in_heredoc = false;
 		signal(SIGINT, handle_c);
 		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (sig == 2)
 	{
 		signal(SIGINT, sigint_handler_in_process);
+		signal(SIGQUIT, sigquit_handler_in_process);
+	}
+	else if (sig == 3)
+	{
+		signal(SIGINT, sigint_handler_in_heredoc);
 		signal(SIGQUIT, sigquit_handler_in_process);
 	}
 }
