@@ -39,38 +39,48 @@ static int	export_syntax(char *str)
 	return (1);
 }
 
-static void	handle_export(char *str, t_env *env)
+static void handle_export(char *str, t_env *env)
 {
-	size_t	i;
-	size_t	j;
-	char	*substr;
-	char	*new_value;
+    size_t i;
+    size_t j;
+    char *substr;
+    char *new_value;
+    char *env_val;
 
-	i = 0;
-	while (str[i] && str[i] != '=')
-		i++;
-	j = i;
-	if (str[i] == '=')
-		i++;
-	substr = ft_substr(str, 0, j);
-	if (!substr)
-		throw_fatal("Allocation Failed", 1);
-	if (ft_strlen(str) == j)
-		new_value = "-NULL-EMPTY-";
-	else
-		new_value = ft_substr(str, i, (ft_strlen(str) - i));
-	if (!new_value && ft_strlen(str) != j)
-		throw_fatal("Allocation Failed", 1);
-	if (var_exists(env, substr) && ft_strcmp(new_value, "-NULL-EMPTY-") == 0)
-		return ;
-	if (get_from_env(env, substr) != NULL && ft_strcmp(new_value, "-NULL-EMPTY-") == 0)
-		return ;
-	if (DEBUG_MODE)
-		printf("exporting %s\n", substr);
-	update_env(&env, substr, new_value);
-    free(substr);
-    if (new_value != NULL && ft_strcmp(new_value, "-NULL-EMPTY-") != 0)
-        free(new_value);
+    i = 0;
+    while (str[i] && str[i] != '=')
+        i++;
+    j = i;
+    if (str[i] == '=')
+        i++;
+    substr = ft_substr(str, 0, j);
+    if (!substr)
+        throw_fatal("Allocation Failed", 1);
+    if (ft_strlen(str) == j)
+        new_value = ft_strdup("-NULL-EMPTY-");
+    else
+        new_value = ft_substr(str, i, (ft_strlen(str) - i));
+    if (!new_value && ft_strlen(str) != j)
+        throw_fatal("Allocation Failed", 1);
+    if (var_exists(env, substr) && ft_strcmp(new_value, "-NULL-EMPTY-") == 0)
+    {
+        free(substr); // Free allocated memory before returning
+        free(new_value); // Free allocated memory before returning
+        return;
+    }
+    env_val = get_from_env(env, substr);
+    if (env_val != NULL && ft_strcmp(new_value, "-NULL-EMPTY-") == 0)
+    {
+        free(substr); // Free allocated memory before returning
+        free(new_value); // Free allocated memory before returning
+        return;
+    }
+    free(env_val);
+    if (DEBUG_MODE)
+        printf("exporting %s\n", substr);
+    update_env(&env, substr, new_value);
+    free(substr); // Free allocated memory before returning
+    free(new_value); // Free allocated memory before returning
 }
 
 void	export_command(char **strs, t_env *env)

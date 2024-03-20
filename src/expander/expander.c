@@ -32,9 +32,12 @@ char	*var_expansion(t_ASTNode *node, t_env *env, int *i)
 		(*i)++;
 	}
 	(*i)--;
-	result = get_from_env(env, result);
-	if (!result || ft_strcmp(result, "-NULL-EMPTY-") == 0)
+    result = get_from_env(env, result);
+    if (!result || ft_strcmp(result, "-NULL-EMPTY-") == 0)
+    {
+        free(result);
 		result = ft_strdup("");
+    }
 	free(new_result);
 	return (result);
 }
