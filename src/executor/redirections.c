@@ -94,6 +94,6 @@ char	*here_doc(t_data *data, t_ASTNode *node)
 		ft_putstr_fd(line, fd);
 		free(line);
 	}
-	close(fd);
+	ft_close(fd);
 	return (ft_strdup(file));
 }

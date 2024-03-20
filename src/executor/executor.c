@@ -23,7 +23,7 @@ void	handle_here_doc(t_ASTNode *node, t_data *data)
 		if (fd != -1)
 		{
 			dup2(fd, STDIN);
-			close(fd);
+			ft_close(fd);
 		}
 		free(here_doc_file);
 	}
@@ -70,9 +70,9 @@ void	execute_pipe(t_ASTNode *node, t_data *data)
 		waitpid(pid, &status, 0);
 	}
 	dup2(saved_stdout, STDOUT);
-	close(saved_stdout);
+	ft_close(saved_stdout);
 	dup2(saved_stdin, STDIN);
-	close(saved_stdin);
+	ft_close(saved_stdin);
 }
 
 void	command_executor(t_ASTNode *node, t_data *data)
@@ -103,9 +103,9 @@ void	command_executor(t_ASTNode *node, t_data *data)
 		data->ret = run_binary(node->content, data, args);
     free(args);
 	dup2(saved_stdout, STDOUT);
-	close(saved_stdout);
+	ft_close(saved_stdout);
 	dup2(saved_stdin, STDIN);
-	close(saved_stdin);
+	ft_close(saved_stdin);
 }
 
 void	executor(t_ASTNode *node, t_data *data)

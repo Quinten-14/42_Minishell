@@ -68,8 +68,8 @@ int	run_binary(char *cmd, t_data *data, char **argv)
 	}
 	else
 	{
-		close(data->pipe_in);
-		close(data->pipe_out);
+		ft_close(data->pipe_in);
+		ft_close(data->pipe_out);
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			return (WEXITSTATUS(status));
