@@ -3,8 +3,6 @@
 
 /* Includes Section */
 
-# include "./data.h"
-# include "./functions.h"
 # include <fcntl.h>
 # include <limits.h>
 # include <readline/history.h>
@@ -16,6 +14,8 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include "./data.h"
+# include "./functions.h"
 
 /* Defines Section */
 
