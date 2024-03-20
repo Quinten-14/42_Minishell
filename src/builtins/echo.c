@@ -1,5 +1,5 @@
-#include "../../include/minishell.h"
 #include "../../include/libft.h"
+#include "../../include/minishell.h"
 
 // so it should be possible to do -nnnnn
 // if i do echo -n -n both should be removed

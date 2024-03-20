@@ -1,8 +1,9 @@
 #include "../../include/libft.h"
 #include "../../include/minishell.h"
 
-char	*join_char(char *result, char char_to_join);
-char	*double_quote(char *result, t_ASTNode *node, t_data *data, int *i);
+char		*join_char(char *result, char char_to_join);
+char		*double_quote(char *result, t_ASTNode *node, t_data *data, int *i);
+char		*join_free_old(char *result, char *str_to_join);
 
 // this file goes over the AST tree and finds nodes with the type Var-Expension
 // then it will get the var from the env var list.
@@ -10,45 +11,48 @@ char	*double_quote(char *result, t_ASTNode *node, t_data *data, int *i);
 // Function to replace the node content if var is found
 // if not just empty it
 
-char	*var_expansion(t_ASTNode *node, t_env *env, int *i)
+// Helper function to extract variable name from the input string
+static char	*extract_variable_name(t_ASTNode *node, int *i)
 {
-	char	*result;
+	char	*variable_name;
 	char	*temp;
-	char	*new_result;
+	char	*new_variable_name;
 
-	result = ft_strdup("");
+	variable_name = ft_strdup("");
 	(*i)++;
 	while (node->content[*i] && node->content[*i] != '$'
 		&& node->content[*i] != '=')
 	{
 		if (node->content[*i] == '$' || node->content[*i] == '\"'
 			|| node->content[*i] == '\'')
+		{
 			break ;
+		}
 		temp = ft_substr(node->content, *i, 1);
-		new_result = ft_strjoin(result, temp);
-		free(result);
+		new_variable_name = ft_strjoin(variable_name, temp);
+		free(variable_name);
 		free(temp);
-		result = new_result;
+		variable_name = new_variable_name;
 		(*i)++;
 	}
 	(*i)--;
-    result = get_from_env(env, result);
-    if (!result || ft_strcmp(result, "-NULL-EMPTY-") == 0)
-    {
-        free(result);
-		result = ft_strdup("");
-    }
-	free(new_result);
-	return (result);
+	return (variable_name);
 }
 
-char	*join_free_old(char *result, char *str_to_join)
+char	*var_expansion(t_ASTNode *node, t_env *env, int *i)
 {
-	char	*new_result;
+	char	*variable_name;
+	char	*variable_value;
 
-	new_result = ft_strjoin(result, str_to_join);
-	free(result);
-	return (new_result);
+	variable_name = extract_variable_name(node, i);
+	variable_value = get_from_env(env, variable_name);
+	free(variable_name);
+	if (!variable_value || ft_strcmp(variable_value, "-NULL-EMPTY-") == 0)
+	{
+		free(variable_value);
+		variable_value = ft_strdup("");
+	}
+	return (variable_value);
 }
 
 char	*handle_dollar(char *result, t_ASTNode *node, t_data *data, int *i)

@@ -1,5 +1,5 @@
-#include "../../include/minishell.h"
 #include "../../include/libft.h"
+#include "../../include/minishell.h"
 
 void	throw_fatal(char *str, int exit_code)
 {

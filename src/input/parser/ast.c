@@ -1,5 +1,5 @@
-#include "../../../include/minishell.h"
 #include "../../../include/libft.h"
+#include "../../../include/minishell.h"
 
 void		free_input(t_input *input);
 t_ASTNode	*create_and_add_nodes(t_input **input, t_ASTNode *curr, int *elem);
@@ -15,33 +15,32 @@ void	free_ast(t_ASTNode *head)
 	free(head);
 }
 
-t_ASTNode *create_ast(t_input *input, int *element)
+t_ASTNode	*create_ast(t_input *input, int *element)
 {
-    t_ASTNode	*head;
+	t_ASTNode	*head;
 
 	head = malloc(sizeof(t_ASTNode));
-    if (!head)
-        return NULL;
-    head->parent = NULL;
-    head->left = NULL;
-    head->right = NULL;
-    head->content = ft_strdup(input->content);
-    if (!head->content)
-    {
-        free(head);
-        return (NULL);
-    }
-    head->type = ft_strdup(input->type);
-    if (!head->type)
-    {
-        free(head->content);
-        free(head);
-        return (NULL);
-    }
-    (*element)--;
-    return (head);
+	if (!head)
+		return (NULL);
+	head->parent = NULL;
+	head->left = NULL;
+	head->right = NULL;
+	head->content = ft_strdup(input->content);
+	if (!head->content)
+	{
+		free(head);
+		return (NULL);
+	}
+	head->type = ft_strdup(input->type);
+	if (!head->type)
+	{
+		free(head->content);
+		free(head);
+		return (NULL);
+	}
+	(*element)--;
+	return (head);
 }
-
 
 t_input	*traverse_input(t_input *input, int *element)
 {
@@ -73,11 +72,7 @@ t_ASTNode	*build_ast(t_input *input, int element)
 	{
 		curr = create_and_add_nodes(&input, curr, &element);
 		while ((curr->parent != 0) && (ft_strcmp(curr->content, "|")) != 0)
-		{
-			if (DEBUG_MODE)
-				printf("---UP---\n");
 			curr = curr->parent;
-		}
 		while ((input->prev != 0) && (ft_strcmp(input->type, "pipe") != 0))
 			input = destroy_node(input);
 		if ((ft_strcmp(input->type, "pipe") == 0) || (!input->prev))

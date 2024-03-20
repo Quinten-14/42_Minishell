@@ -1,5 +1,5 @@
-#include "../../include/minishell.h"
 #include "../../include/libft.h"
+#include "../../include/minishell.h"
 
 static int	unset_syntax(char *str)
 {

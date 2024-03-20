@@ -1,34 +1,26 @@
-#include "../../include/minishell.h"
 #include "../../include/libft.h"
+#include "../../include/minishell.h"
 
 void	increment_shell_lvl(t_env *env)
 {
 	int		curr_lvl;
 	char	*lvl;
-    char    *shlvl;
+	char	*shlvl;
 
-    shlvl = get_from_env(env, "SHLVL");
+	shlvl = get_from_env(env, "SHLVL");
 	curr_lvl = ft_atoi(shlvl);
-    free(shlvl);
+	free(shlvl);
 	if (!curr_lvl)
-	{
-		update_env(&env, "SHLVL", "1");
-		return ;
-	}
+		return ((void)update_env(&env, "SHLVL", "1"));
 	if (curr_lvl < 0)
-	{
-		update_env(&env, "SHLVL", "1");
-		return ;
-	}
+		return ((void)update_env(&env, "SHLVL", "1"));
 	if (curr_lvl > 99)
 	{
 		lvl = ft_itoa(curr_lvl % 100 + 1);
 		update_env(&env, "SHLVL", lvl);
-		free(lvl);
-		return ;
+		return ((void)free(lvl));
 	}
 	lvl = ft_itoa(curr_lvl + 1);
 	update_env(&env, "SHLVL", lvl);
-	free(lvl);
-	return ;
+	return ((void)free(lvl));
 }

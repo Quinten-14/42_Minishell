@@ -8,26 +8,7 @@ char	**arg_arr(t_ASTNode *node);
 char	*get_path(char *cmd, t_env *env);
 bool	has_pi(t_ASTNode *node);
 void	handle_abort_exec(int saved_stdout, int saved_stdin);
-
-void	handle_here_doc(t_ASTNode *node, t_data *data)
-{
-	char	*here_doc_file;
-	int		fd;
-
-	here_doc_file = NULL;
-	if (node->right && ft_strcmp(node->right->type, "here_doc") == 0)
-		here_doc_file = here_doc(data, node->right);
-	if (here_doc_file != NULL)
-	{
-		fd = open(here_doc_file, O_RDONLY);
-		if (fd != -1)
-		{
-			dup2(fd, STDIN);
-			ft_close(fd);
-		}
-		free(here_doc_file);
-	}
-}
+void	handle_here_doc(t_ASTNode *node, t_data *data);
 
 void	execute_pipe(t_ASTNode *node, t_data *data)
 {
@@ -101,7 +82,7 @@ void	command_executor(t_ASTNode *node, t_data *data)
 		data->ret = exec_builtin(node->content, args, data);
 	else if (args)
 		data->ret = run_binary(node->content, data, args);
-    free(args);
+	free(args);
 	dup2(saved_stdout, STDOUT);
 	ft_close(saved_stdout);
 	dup2(saved_stdin, STDIN);

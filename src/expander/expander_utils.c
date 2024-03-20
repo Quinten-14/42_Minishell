@@ -31,3 +31,12 @@ char	*double_quote(char *result, t_ASTNode *node, t_data *data, int *i)
 	}
 	return (result);
 }
+
+char	*join_free_old(char *result, char *str_to_join)
+{
+	char	*new_result;
+
+	new_result = ft_strjoin(result, str_to_join);
+	free(result);
+	return (new_result);
+}

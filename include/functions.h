@@ -70,5 +70,7 @@ void		throw_fatal(char *str, int exit_code);
 void		free_array(char **array);
 char		*get_process_id(void);
 t_ASTNode	*ft_error(char *str);
+char		**env_list_to_array(t_env *env);
+void		free_env_array(char **env);
 
 #endif

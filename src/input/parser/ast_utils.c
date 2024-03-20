@@ -1,5 +1,5 @@
-#include "../../../include/minishell.h"
 #include "../../../include/libft.h"
+#include "../../../include/minishell.h"
 
 t_ASTNode	*create_and_add_nodes(t_input **input, t_ASTNode *curr, int *elem)
 {
@@ -79,9 +79,8 @@ t_ASTNode	*add_ast_node(t_input *input, t_ASTNode *current, int *element)
 		new_node = add_left_node(current, input, element);
 	else if (ft_strcmp(input->prev->content, "|") == 0)
 		new_node = add_right_node(current, input, element);
-	else if ((ft_strcmp(input->type, "great") == 0)
-		|| (ft_strcmp(input->type, "dgreat") == 0)
-		|| (ft_strcmp(input->type, "here_doc") == 0)
+	else if ((ft_strcmp(input->type, "great") == 0) || (ft_strcmp(input->type,
+				"dgreat") == 0) || (ft_strcmp(input->type, "here_doc") == 0)
 		|| (ft_strcmp(input->type, "less") == 0))
 	{
 		command_node = current;

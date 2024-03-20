@@ -1,5 +1,5 @@
-#include "../../../include/minishell.h"
 #include "../../../include/libft.h"
+#include "../../../include/minishell.h"
 
 char	*check_types(char *str, int i, char **arr);
 
@@ -37,15 +37,15 @@ t_input	*destroy_node(t_input *input)
 
 void	free_input(t_input *input)
 {
-    t_input *next;
+	t_input	*next;
 
-    while (input != NULL)
-    {
-        next = input->next;
-        free(input->content);
-        free(input);
-        input = next;
-    }
+	while (input != NULL)
+	{
+		next = input->next;
+		free(input->content);
+		free(input);
+		input = next;
+	}
 }
 
 void	add_node_input(t_input **head, char *str, int i, char **arr)
