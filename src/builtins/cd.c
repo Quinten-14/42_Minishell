@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qraymaek <qraymaek@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lde-paep <lde-paep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 01:23:11 by qraymaek          #+#    #+#             */
-/*   Updated: 2024/03/21 02:13:34 by qraymaek         ###   ########.fr       */
+/*   Updated: 2024/03/21 08:35:16 by lde-paep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,5 @@ void	cd_command(char **strs, t_env *env)
 	change_directory_and_update_env(path, old_pwd, &env);
 }
 
-// removed free oldpwd and pwd from cd command function and moved to  change directory and update env function
+// removed free oldpwd and pwd from cd command function and moved to
+// change directory and update env function

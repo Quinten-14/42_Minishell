@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qraymaek <qraymaek@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lde-paep <lde-paep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 01:24:48 by qraymaek          #+#    #+#             */
-/*   Updated: 2024/03/21 01:24:48 by qraymaek         ###   ########.fr       */
+/*   Updated: 2024/03/21 08:28:52 by lde-paep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_input	*lexer(char *prompt)
 
 	input_list = NULL;
 	splitted = convert_input(prompt);
-	if (!splitted[0])
+	if (!splitted || !splitted[0])
 	{
 		free_array(splitted);
 		return (NULL);
