@@ -43,11 +43,8 @@ void	sigquit_handler_in_process(int sig)
 
 t_ASTNode	*handle_d(t_data *data)
 {
-	if (!g_sig.in_heredoc)
-	{
 	ft_putendl_fd("exit ", 2);
 	data->exit = true;
-	}
 	return (NULL);
 }
 

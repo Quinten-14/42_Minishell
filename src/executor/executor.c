@@ -65,6 +65,7 @@ void	command_executor(t_ASTNode *node, t_data *data)
 	saved_stdout = dup(STDOUT_FILENO);
 	saved_stdin = dup(STDIN_FILENO);
 	data->abort_exec = false;
+	g_sig.abort_exec = false;
 	if (node->right && (ft_strcmp(node->right->type, "great") == 0
 			|| ft_strcmp(node->right->type, "dgreat") == 0))
 		redir(data, node->right);
