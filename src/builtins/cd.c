@@ -6,7 +6,7 @@
 /*   By: qraymaek <qraymaek@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 01:23:11 by qraymaek          #+#    #+#             */
-/*   Updated: 2024/03/21 01:23:11 by qraymaek         ###   ########.fr       */
+/*   Updated: 2024/03/21 02:13:34 by qraymaek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ static void	change_directory_and_update_env(char *path, char *old_pwd,
 		return ;
 	}
 	update_env(env, "PWD", new_pwd);
+	free(path);
 	free(new_pwd);
+	free(old_pwd);
 }
 
 // Main function to handle cd command
@@ -64,6 +66,6 @@ void	cd_command(char **strs, t_env *env)
 		return ((void)perror("cd"));
 	old_pwd = get_from_env(env, "PWD");
 	change_directory_and_update_env(path, old_pwd, &env);
-	free(path);
-	free(old_pwd);
 }
+
+// removed free oldpwd and pwd from cd command function and moved to  change directory and update env function
