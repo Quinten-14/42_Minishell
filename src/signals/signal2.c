@@ -1,41 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   signal2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qraymaek <qraymaek@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 01:23:44 by qraymaek          #+#    #+#             */
-/*   Updated: 2024/03/21 01:23:44 by qraymaek         ###   ########.fr       */
+/*   Created: 2024/03/21 01:25:27 by qraymaek          #+#    #+#             */
+/*   Updated: 2024/03/21 01:25:28 by qraymaek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 #include "../../include/minishell.h"
 
-static int	unset_syntax(char *str)
+void	handle_c(int num)
 {
-	int	i;
-
-	if (ft_isdigit(str[0]))
-		return (printf("%s: Not a valid identifier\n", str), 0);
-	i = -1;
-	while (str[++i])
-		if (str[i] != '_' && !ft_isalnum(str[i]))
-			return (printf("%s: Not a valid identifier\n", str), 0);
-	return (1);
+	(void)num;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
-void	unset_command(t_env *env, char **strs)
+void	sigint_handler_in_process(int sig)
 {
-	int	i;
+	(void)sig;
+	write(1, "\n", 1);
+}
 
-	(void)env;
-	i = 1;
-	while (strs[i])
+void	sigint_handler(int sig)
+{
+	(void)sig;
+	if (g_sig.here_doc_pid > 0)
 	{
-		if (unset_syntax(strs[i]) == 1)
-			delete_env(&env, strs[i]);
-		i++;
+		kill(g_sig.here_doc_pid, SIGTERM);
+		unlink("/tmp/here_doc");
+		g_sig.abort_exec = true;
 	}
+	else
+		write(STDOUT_FILENO, "\n", 1);
+}
+
+void	sigquit_handler_in_process(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("Quit (core dumped)\n", 2);
 }
