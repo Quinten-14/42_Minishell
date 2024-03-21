@@ -6,7 +6,7 @@
 /*   By: qraymaek <qraymaek@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 01:25:22 by qraymaek          #+#    #+#             */
-/*   Updated: 2024/03/21 01:25:22 by qraymaek         ###   ########.fr       */
+/*   Updated: 2024/03/21 11:45:06 by lde-paep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_ASTNode	*handle_d(t_data *data)
 	data->exit = true;
 	return (NULL);
 }
-
+;
 void	run_signals(int sig)
 {
 	if (sig == 1)
@@ -40,6 +40,6 @@ void	run_signals(int sig)
 	else if (sig == 3)
 	{
 		signal(SIGINT, sigint_handler);
-		signal(SIGQUIT, sigquit_handler_in_process);
+		signal(SIGQUIT, SIG_IGN);
 	}
 }
